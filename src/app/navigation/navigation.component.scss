@@ -1,0 +1,23 @@
+#nav-container {
+  width: 100vw;
+  text-align: center;
+  background-color: #f5f5f5;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+#name {
+  margin: 0;
+  padding: 0.5%;
+}
+
+a {
+  margin-left: 1%;
+  margin-right: 1%;
+  position: relative;
+}
+
+a:hover {
+  text-decoration: underline;
+}
