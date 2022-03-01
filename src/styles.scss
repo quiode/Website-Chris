@@ -1,6 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
 
+// Variables
+:root {
+  // color-palette
+  --primary-color: var(--white-primary);
+  --secondary-color: var(--white-secondary);
+  // white mode
+  --white-primary: white;
+  --white-secondary: black;
+  // dark mode
+  --dark-primary: black;
+  --dark-secondary: white;
+}
+
 .center {
   transform: translate(-50%, -50%);
   position: relative;
@@ -29,4 +42,6 @@ body {
   position: relative;
   box-sizing: border-box;
   font-family: 'Oswald', sans-serif;
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
 }
