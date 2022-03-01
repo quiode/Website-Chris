@@ -48,8 +48,4 @@ export class AppComponent implements OnInit {
       return false;
     }
   }
-
-  onclick() {
-    this.setDarkMode(!this.getDarkMode());
-  }
 }
