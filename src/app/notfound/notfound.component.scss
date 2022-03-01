@@ -1,0 +1,11 @@
+div {
+  font-size: 3rem;
+  text-align: center;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  // height: 40vh;
+
+  div {
+    height: max-content;
+  }
+}
