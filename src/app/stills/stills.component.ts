@@ -23,10 +23,11 @@ export class StillsComponent implements OnInit {
           })
           .then((image) => {
             if (image) {
-              const section: HTMLElement = this.renderer.createElement('section');
-              section.classList.add('still');
-              section.appendChild(image);
-              this.renderer.appendChild(this.stillsContainer.nativeElement, section);
+              this.renderer.listen(image, 'click', () => {
+                alert('Image clicked');
+              });
+              this.renderer.setProperty(image, '(click)', `showStill('${still.id}')`);
+              this.renderer.appendChild(this.stillsContainer.nativeElement, image);
             }
           });
       }

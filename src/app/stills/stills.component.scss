@@ -1,18 +1,15 @@
 article {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   align-items: flex-start;
   align-content: flex-start;
   max-width: 75vw;
-
-  @media (min-width: 20cm) {
-    max-width: 100vw;
-  }
+  transform: translate(-50%, 0);
+  left: 50vw;
 }
 
-.still {
-  max-width: 75vw;
-  min-width: 10vw;
-  width: 100px;
+:host ::ng-deep img {
+  margin: 1%;
+  overflow: auto;
 }
