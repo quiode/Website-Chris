@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PhotoViewerService {
+  constructor() {}
 
-  constructor() { }
+  nextImageUrl(currentId: string): string {}
+
+  prevImageUrl(currentId: string): string {}
 }
