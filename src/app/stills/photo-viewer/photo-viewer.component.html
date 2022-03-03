@@ -1,1 +1,6 @@
-<p>photo-viewer works!</p>
+<div>
+  <div id="lastImage" class="nav-icons"><img src="assets/NavigationButtonLeft.svg"></div>
+  <img [src]="imageURL">
+  <div id="nextImage" class="nav-icons"><img src="assets/NavigationButton.svg"></div>
+  <div id="close" (click)="close()" class="nav-icons"><img src="assets/CloseButton.svg"></div>
+</div>

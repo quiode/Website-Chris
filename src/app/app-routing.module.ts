@@ -7,6 +7,7 @@ import { StillsComponent } from './stills/stills.component';
 import { AboutmeComponent } from './aboutme/aboutme.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { VideosComponent } from './videos/videos.component';
+import { PhotoViewerComponent } from './stills/photo-viewer/photo-viewer.component';
 
 const routes: Routes = [
   {
@@ -21,7 +22,11 @@ const routes: Routes = [
     path: 'music',
     component: MusicComponent,
   },
-  { path: 'stills', component: StillsComponent },
+  {
+    path: 'stills',
+    component: StillsComponent,
+    children: [{ path: ':id', component: PhotoViewerComponent }],
+  },
   { path: 'videos', component: VideosComponent },
   { path: 'aboutme', component: AboutmeComponent },
   { path: '', redirectTo: '/stills', pathMatch: 'full' },

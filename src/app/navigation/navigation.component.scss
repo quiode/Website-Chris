@@ -18,7 +18,7 @@ a {
   position: relative;
   font-weight: normal;
   font-size: xx-large;
-  color: var(--secondary-color);
+  color: rgb(var(--secondary-color));
   text-decoration: none;
 }
 
@@ -28,4 +28,10 @@ a:hover {
 
 .active {
   text-decoration: underline;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }

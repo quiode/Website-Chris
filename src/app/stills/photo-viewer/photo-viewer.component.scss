@@ -1,0 +1,67 @@
+div {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  background-color: rgba(black, 0.75);
+  position: fixed;
+  z-index: 1;
+
+  img {
+    position: inherit;
+    z-index: 2;
+    max-width: 80vw;
+    max-height: 80vh;
+
+    // centering
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+  }
+
+  .nav-icons {
+    width: 5vw;
+    height: 5vw;
+
+    @media screen and (max-width: 768px) {
+      width: 10vw;
+      height: 10vw;
+    }
+
+    background-color: initial;
+    position: inherit;
+    z-index: 2;
+
+    // vertical centering
+    transform: translateY(-50%);
+    top: 50%;
+
+    cursor: pointer;
+
+    img {
+      position: inherit;
+      background-color: transparent;
+      width: inherit;
+      height: inherit;
+    }
+  }
+
+  $abstand: 10vw;
+
+  #lastImage {
+    left: $abstand;
+    right: auto;
+  }
+
+  #nextImage {
+    right: $abstand;
+    left: auto;
+  }
+
+  #close {
+    transform: scale(0.5);
+    top: 0;
+  }
+}
