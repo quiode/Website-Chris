@@ -8,6 +8,7 @@ import { AboutmeComponent } from './aboutme/aboutme.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { VideosComponent } from './videos/videos.component';
 import { PhotoViewerComponent } from './stills/photo-viewer/photo-viewer.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
     path: 'stills',
     component: StillsComponent,
     children: [{ path: ':id', component: PhotoViewerComponent }],
+  },
+  {
+    path: 'admin',
+    component: AdminPanelComponent,
   },
   { path: 'videos', component: VideosComponent },
   { path: 'aboutme', component: AboutmeComponent },
