@@ -4,11 +4,9 @@ import { Still } from './still.interface';
 import { environment } from '../../environments/environment';
 import { catchError, map, Observable } from 'rxjs';
 export interface cachedImage {
-  [id: string]: {
-    metaData: Still;
-    thumbnail: HTMLImageElement;
-    image: HTMLImageElement | null;
-  };
+  metaData: Still;
+  thumbnail: HTMLImageElement;
+  image: HTMLImageElement | null;
 }
 
 @Injectable({
@@ -17,7 +15,7 @@ export interface cachedImage {
 export class StillsApiService {
   constructor(private httpClient: HttpClient) {}
   private readonly stillsUrl = environment.apiUrl + 'stills/';
-  private chachedImages: cachedImage = {};
+  private chachedImages: cachedImage[] = [];
 
   /**
    * @returns all stills as metadata from the api
@@ -89,8 +87,9 @@ export class StillsApiService {
   }
 
   getThumbnailImage(id: string): Promise<HTMLImageElement> {
-    if (this.chachedImages[id] && this.chachedImages[id].thumbnail) {
-      return Promise.resolve(this.chachedImages[id].thumbnail);
+    const cached = this.getCachedImage(id);
+    if (cached && cached.thumbnail) {
+      return Promise.resolve(cached.thumbnail);
     }
     let headers: HttpHeaders;
     const result = new Promise<HTMLImageElement>((resolve, reject) => {
@@ -99,15 +98,21 @@ export class StillsApiService {
         if (response.body && response.headers) {
           this.blobToImage(response.body).then(
             (img) => {
-              if (this.chachedImages[id]) {
-                this.chachedImages[id].thumbnail = img;
-                this.chachedImages[id].metaData = {
-                  id,
-                  hash: headers.get('hash') || '',
-                  position: parseInt(headers.get('position') || ''),
+              const cached = this.getCachedImage(id);
+              if (cached) {
+                const newCached = {
+                  ...cached,
+                  thumbnail: img,
+                  metaData: {
+                    ...cached.metaData,
+                    id,
+                    hash: headers.get('hash') || '',
+                    position: parseInt(headers.get('position') || ''),
+                  },
                 };
+                this.setCachedImage(id, newCached);
               } else {
-                this.chachedImages[id] = {
+                this.setCachedImage(id, {
                   thumbnail: img,
                   metaData: {
                     id,
@@ -115,7 +120,7 @@ export class StillsApiService {
                     position: parseInt(headers.get('position') || ''),
                   },
                   image: null,
-                };
+                });
               }
               resolve(img);
             },
@@ -132,15 +137,16 @@ export class StillsApiService {
   }
 
   getImage(id: string): Promise<HTMLImageElement> {
-    if (this.chachedImages[id]) {
-      if (this.chachedImages[id].image) {
-        return Promise.resolve(this.chachedImages[id].image as HTMLImageElement);
+    const cached = this.getCachedImage(id);
+    if (cached) {
+      if (cached.image) {
+        return Promise.resolve(cached.image as HTMLImageElement);
       } else {
         return new Promise((resolve, reject) => {
           this.getOriginal(id).subscribe((blob) => {
             this.blobToImage(blob).then(
               (img) => {
-                this.chachedImages[id].image = img;
+                this.setCachedImage(id, { ...cached, image: img });
                 resolve(img);
               },
               (error) => {
@@ -157,7 +163,12 @@ export class StillsApiService {
             this.getOriginal(id).subscribe((blob) => {
               this.blobToImage(blob)
                 .then((img) => {
-                  this.chachedImages[id].image = img;
+                  const cached = this.getCachedImage(id);
+                  if (cached === null) {
+                    console.error(cached, id, this.chachedImages);
+                    throw Error('cached image not found');
+                  }
+                  this.setCachedImage(id, { ...cached, image: img });
                   resolve(img);
                 })
                 .catch((error) => {
@@ -173,16 +184,26 @@ export class StillsApiService {
   }
 
   private updateStillCache(still: Still) {
-    if (this.chachedImages[still.id]) {
-      this.chachedImages[still.id].metaData = still;
+    const cached = this.getCachedImage(still.id);
+    if (cached) {
+      this.setCachedImage(still.id, { ...cached, metaData: still });
     }
   }
 
   getPosition(id: string) {
-    if (this.chachedImages[id]) {
-      if (this.chachedImages[id].metaData) {
-        return this.chachedImages[id].metaData.position;
+    const cached = this.getCachedImage(id);
+    if (cached) {
+      if (cached.metaData) {
+        return cached.metaData.position;
       }
+    }
+    return null;
+  }
+
+  getPositionImage(image: string) {
+    const cachedImage = this.chachedImages.find((cached) => cached.image?.src === image);
+    if (cachedImage) {
+      return cachedImage.metaData.position;
     }
     return null;
   }
@@ -197,5 +218,31 @@ export class StillsApiService {
           reject(error);
         });
     });
+  }
+
+  private getLocation(id: string) {
+    const image = this.chachedImages.find((cachedImage) => cachedImage.metaData.id === id);
+    if (image) {
+      return this.chachedImages.indexOf(image);
+    }
+    return null;
+  }
+
+  private getCachedImage(id: string) {
+    const location = this.getLocation(id);
+    if (location != null) {
+      return this.chachedImages[location];
+    } else {
+      return null;
+    }
+  }
+
+  private setCachedImage(id: string, cached: cachedImage) {
+    const location = this.getLocation(id);
+    if (location != null) {
+      this.chachedImages[location] = cached;
+    } else {
+      this.chachedImages.push(cached);
+    }
   }
 }
