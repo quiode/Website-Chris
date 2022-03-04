@@ -11,10 +11,12 @@ export class FullscreenService {
   /* View in fullscreen */
   openFullscreen() {
     this.elem.requestFullscreen({ navigationUI: 'hide' });
+    screen.orientation.lock('landscape-primary');
   }
 
   /* Close fullscreen */
   closeFullscreen() {
     document.exitFullscreen();
+    screen.orientation.unlock();
   }
 }

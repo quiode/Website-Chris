@@ -24,17 +24,18 @@ div {
   }
 
   .nav-icons {
-    width: 5vw;
-    height: 5vw;
+    $size: 5vw;
+    width: $size;
+    height: $size;
 
     @media screen and (max-width: 768px) {
-      width: 10vw;
-      height: 10vw;
+      width: $size * 2;
+      height: $size * 2;
     }
 
     background-color: initial;
     position: inherit;
-    z-index: 2;
+    z-index: 3;
 
     // vertical centering
     transform: translateY(-50%);
@@ -51,15 +52,24 @@ div {
   }
 
   $abstand: 7.5vw;
+  $abstand-mobile: 0.1vw;
 
   #lastImage {
     left: $abstand;
     right: auto;
+
+    @media screen and (max-width: 768px) {
+      left: $abstand-mobile;
+    }
   }
 
   #nextImage {
     right: $abstand;
     left: auto;
+
+    @media screen and (max-width: 768px) {
+      right: $abstand-mobile;
+    }
   }
 
   #close {
