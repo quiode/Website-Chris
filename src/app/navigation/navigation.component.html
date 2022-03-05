@@ -1,10 +1,23 @@
 <div id="nav-container">
   <p id="name">Christoph Anton-Cornelius Bärtsch</p>
-  <nav>
+  <nav *ngIf="!isAdmin">
     <a href="" routerLink="/stills" routerLinkActive="active">Stills</a>
     <a href="" routerLink="/videos" routerLinkActive="active">Videos</a>
     <a href="" routerLink="/music" routerLinkActive="active">Music</a>
     <a href="" routerLink="/aboutme" routerLinkActive="active">About Me</a>
     <a href="" routerLink="/linktree" routerLinkActive="active">Linktree</a>
+    <a *ngIf="isLoggedIn" href="" routerLink="/admin" routerLinkActive="active">Admin Page</a>
+  </nav>
+  <nav *ngIf="isAdmin && isLoggedIn">
+    <a href="" routerLink="/admin/login" routerLinkActive="active">Login</a>
+    <a href="" routerLink="/admin/stills" routerLinkActive="active">Stills</a>
+    <a href="" routerLink="/admin/videos" routerLinkActive="active">Videos</a>
+    <a href="" routerLink="/admin/music" routerLinkActive="active">Music</a>
+    <a href="" (click)="logout()">Logout</a>
+    <a href="" routerLink="/" routerLinkActive="active">Exit</a>
+  </nav>
+  <nav *ngIf="isAdmin && !isLoggedIn">
+    <a href="" routerLink="/admin/login" routerLinkActive="active">Login</a>
+    <a href="" routerLink="/" routerLinkActive="active">Exit</a>
   </nav>
 </div>

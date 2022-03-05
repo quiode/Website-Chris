@@ -3,10 +3,13 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-music',
   templateUrl: './music.component.html',
-  styleUrls: ['./music.component.scss'],
+  styleUrls: ['./music.component.scss']
 })
-export class AdminMusicComponent implements OnInit {
-  constructor() {}
+export class MusicComponent implements OnInit {
 
-  ngOnInit(): void {}
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
 }
