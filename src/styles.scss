@@ -44,3 +44,6 @@ body {
   color: rgb(var(--secondary-color));
   background-color: rgb(var(--primary-color));
 }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
