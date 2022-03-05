@@ -14,6 +14,8 @@ import { NotfoundModule } from './notfound/notfound.module';
 import { AdminPanelModule } from './admin-panel/admin-panel.module';
 import { AboutmeModule } from './aboutme/aboutme.module';
 import { LinktreeModule } from './linktree/linktree.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +32,12 @@ import { LinktreeModule } from './linktree/linktree.module';
     AdminPanelModule,
     AboutmeModule,
     LinktreeModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],
