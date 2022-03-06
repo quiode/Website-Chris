@@ -127,4 +127,24 @@ export class AdminStillsApiService {
     }
     return progress / (uploadProgress.length - finished);
   }
+
+  async replaceAllPositions(stills: StillItem[]) {
+    const url = this.backendUrl + 'replace';
+    const correctStills = stills.map((still, index) => {
+      return {
+        id: still.id,
+        position: index,
+      };
+    });
+    return new Promise<Still[]>((resolve, reject) => {
+      this.httpClient.patch<Still[]>(url, correctStills).subscribe({
+        next: (stills) => {
+          resolve(stills);
+        },
+        error: (err) => {
+          reject(err);
+        },
+      });
+    });
+  }
 }

@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class AdminStillsComponent implements OnInit {
   constructor(private stillsService: AdminStillsApiService, private router: Router) {}
   selectedFiles: FileList | null = null;
+  stillsChanged = false;
   stills: StillItem[] = [];
   backend = environment.apiUrl + 'stills/';
   uploadProgress: {
@@ -27,6 +28,7 @@ export class AdminStillsComponent implements OnInit {
       .getStills()
       .then((stills) => {
         this.stills = stills;
+        this.stillsChanged = false;
       })
       .catch((err) => {
         alert('Error loading stills');
@@ -40,24 +42,37 @@ export class AdminStillsComponent implements OnInit {
 
   submit() {
     if (this.selectedFiles) {
-      console.log('Uploading files');
       this.uploadProgress = this.stillsService.uploadStills(this.selectedFiles);
       const interval = setInterval(() => {
         this.progress = this.getProgress();
         this.finished = this.isFinished();
-        console.log(this.progress);
-        console.log(this.finished);
         if (this.isFinished()) {
           clearInterval(interval);
-          this.router.navigate(['/admin']);
           this.uploadProgress = [];
+          this.stillsService.getStills().then((stills) => {
+            this.stills = stills;
+            this.stillsChanged = false;
+          });
         }
       }, 10);
+    } else if (this.stillsChanged) {
+      this.stillsChanged = false;
+      this.stillsService
+        .replaceAllPositions(this.stills)
+        .then((stills) => {
+          this.stills = stills;
+          this.stillsChanged = false;
+        })
+        .catch((err) => {
+          alert('Error saving stills');
+          console.error(err);
+        });
     }
   }
 
   drop($event: CdkDragDrop<StillItem[]>) {
     moveItemInArray(this.stills, $event.previousIndex, $event.currentIndex);
+    this.stillsChanged = true;
   }
 
   onDelete(still: StillItem) {
@@ -66,6 +81,7 @@ export class AdminStillsComponent implements OnInit {
         .getStills()
         .then((stills) => {
           this.stills = stills;
+          this.stillsChanged = false;
         })
         .catch((err) => {
           alert('Error deleting still');
