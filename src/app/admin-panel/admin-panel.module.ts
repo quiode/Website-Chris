@@ -12,15 +12,25 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { LoginGuard } from './login.guard';
 import { SharedModule } from '../shared/shared.module';
+import { StillItemComponent } from './stills/still-item/still-item.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, NgbModule, SharedModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    NgbModule,
+    SharedModule,
+    DragDropModule,
+  ],
   declarations: [
     AdminPanelComponent,
     AdminStillsComponent,
     AdminVideosComponent,
     MusicComponent,
     LoginComponent,
+    StillItemComponent,
   ],
   providers: [AuthService, AuthGuard, LoginGuard],
 })

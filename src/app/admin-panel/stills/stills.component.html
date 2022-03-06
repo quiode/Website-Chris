@@ -5,7 +5,26 @@
     (filesEvent)="filesSelected($event)"
     class="button"
   ></app-file-upload>
-  <h1 style="color: red">List of all images, have to implement</h1>
+  <div
+    id="item-container"
+    cdkDropList
+    (cdkDropListDropped)="drop($event)"
+    cdkDragBoundary="item-container"
+  >
+    <app-still-item
+      cdkDrag
+      *ngFor="let still of stills; index as i"
+      [still]="still"
+      id="stillItem"
+      [cdkDragData]="still"
+      >{{ i
+      }}<img
+        style="max-width: 15vw; max-height: 15vh"
+        *cdkDragPreview
+        [src]="still.thumbnailUrl"
+        [alt]="still.id"
+    /></app-still-item>
+  </div>
   <button
     type="button"
     class="btn btn-success button"
