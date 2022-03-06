@@ -13,6 +13,8 @@ import { PhotoViewerComponent } from './stills/photo-viewer/photo-viewer.compone
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { LoginComponent } from './admin-panel/login/login.component';
 import { MusicComponent } from './admin-panel/music/music.component';
+import { AuthGuard } from './admin-panel/auth.guard';
+import { LoginGuard } from './admin-panel/login.guard';
 
 const routes: Routes = [
   {
@@ -37,11 +39,11 @@ const routes: Routes = [
     component: AdminPanelComponent,
     children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: 'login', component: LoginComponent },
-      { path: 'stills', component: AdminStillsComponent },
-      { path: 'videos', component: AdminVideosComponent },
-      { path: 'music', component: AdminMusicComponent },
-      { path: '**', component: NotfoundComponent },
+      { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
+      { path: 'stills', component: AdminStillsComponent, canActivate: [AuthGuard] },
+      { path: 'videos', component: AdminVideosComponent, canActivate: [AuthGuard] },
+      { path: 'music', component: AdminMusicComponent, canActivate: [AuthGuard] },
+      { path: '**', component: NotfoundComponent, canActivate: [AuthGuard] },
     ],
   },
   { path: 'videos', component: VideosComponent },

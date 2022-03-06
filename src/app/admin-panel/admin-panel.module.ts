@@ -1,3 +1,4 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminPanelComponent } from './admin-panel.component';
@@ -6,8 +7,13 @@ import { AdminVideosComponent } from './videos/videos.component';
 import { MusicComponent } from './music/music.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
+import { LoginGuard } from './login.guard';
 
 @NgModule({
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, NgbModule],
   declarations: [
     AdminPanelComponent,
     AdminStillsComponent,
@@ -15,6 +21,6 @@ import { RouterModule } from '@angular/router';
     MusicComponent,
     LoginComponent,
   ],
-  imports: [CommonModule, RouterModule],
+  providers: [AuthService, AuthGuard, LoginGuard],
 })
 export class AdminPanelModule {}

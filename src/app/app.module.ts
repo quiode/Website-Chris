@@ -18,6 +18,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -37,11 +39,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
     NgbModule,
   ],
-  providers: [CookieService],
+  providers: [CookieService, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

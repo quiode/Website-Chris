@@ -1,0 +1,20 @@
+form {
+  width: 25vw;
+  transform: translateX(-50%);
+  position: relative;
+  left: 50%;
+  font-size: large;
+
+  input {
+    position: relative;
+    z-index: 1;
+  }
+
+  button {
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    width: 100%;
+    margin-top: 2%;
+  }
+}

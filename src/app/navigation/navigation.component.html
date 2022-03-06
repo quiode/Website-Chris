@@ -9,15 +9,14 @@
     <a *ngIf="isLoggedIn" href="" routerLink="/admin" routerLinkActive="active">Admin Page</a>
   </nav>
   <nav *ngIf="isAdmin && isLoggedIn">
-    <a href="" routerLink="/admin/login" routerLinkActive="active">Login</a>
     <a href="" routerLink="/admin/stills" routerLinkActive="active">Stills</a>
     <a href="" routerLink="/admin/videos" routerLinkActive="active">Videos</a>
     <a href="" routerLink="/admin/music" routerLinkActive="active">Music</a>
     <a href="" (click)="logout()">Logout</a>
-    <a href="" routerLink="/" routerLinkActive="active">Exit</a>
+    <a href="" routerLink="/">Exit</a>
   </nav>
   <nav *ngIf="isAdmin && !isLoggedIn">
     <a href="" routerLink="/admin/login" routerLinkActive="active">Login</a>
-    <a href="" routerLink="/" routerLinkActive="active">Exit</a>
+    <a href="" routerLink="/">Exit</a>
   </nav>
 </div>
