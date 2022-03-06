@@ -3,12 +3,18 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, Subject, Subscriber } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private httpClient: HttpClient, private jwtHelper: JwtHelperService) {
+  constructor(
+    private httpClient: HttpClient,
+    private jwtHelper: JwtHelperService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.loggedIn.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
     });
@@ -55,6 +61,9 @@ export class AuthService {
                 this.token = token.access_token;
                 this.timeout = setTimeout(() => {
                   this.logout();
+                  if (this.route.snapshot.url.toString().includes('admin')) {
+                    this.router.navigate(['/admin/login']);
+                  }
                 }, expirationDate.getTime() - now.getTime() - 1 * 60 * 1000);
                 resolve(true);
               }
