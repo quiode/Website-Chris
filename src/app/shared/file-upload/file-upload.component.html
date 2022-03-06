@@ -1,0 +1,5 @@
+<input type="file" [accept]="fileType" multiple (change)="onFileSelected($event)" #fileUpload />
+
+<div>
+  <button type="button" class="btn btn-primary" (click)="fileUpload.click()">Select Files</button>
+</div>

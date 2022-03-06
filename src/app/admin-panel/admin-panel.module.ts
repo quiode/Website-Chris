@@ -11,9 +11,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { LoginGuard } from './login.guard';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, NgbModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, NgbModule, SharedModule],
   declarations: [
     AdminPanelComponent,
     AdminStillsComponent,

@@ -19,6 +19,7 @@ import { environment } from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -42,6 +43,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
       registrationStrategy: 'registerWhenStable:30000',
     }),
     NgbModule,
+    SharedModule,
   ],
   providers: [CookieService, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
   bootstrap: [AppComponent],

@@ -1,1 +1,17 @@
-<p>stills works!</p>
+<div id="container">
+  <!-- <div id="title">Upload Stills</div> -->
+  <app-file-upload
+    fileType="image/jpeg"
+    (filesEvent)="filesSelected($event)"
+    class="button"
+  ></app-file-upload>
+  <h1 style="color: red">List of all images, have to implement</h1>
+  <button
+    type="button"
+    class="btn btn-success button"
+    (click)="submit()"
+    [disabled]="selectedFiles ? selectedFiles.length <= 0 : true"
+  >
+    Submit
+  </button>
+</div>

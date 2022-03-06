@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-stills',
@@ -7,6 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminStillsComponent implements OnInit {
   constructor() {}
+  selectedFiles: FileList | null = null;
 
   ngOnInit(): void {}
+
+  filesSelected(event: FileList) {
+    this.selectedFiles = event;
+  }
+
+  submit() {}
 }
