@@ -90,4 +90,8 @@ export class AuthService {
   getLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable();
   }
+
+  getToken(): string {
+    return this.token;
+  }
 }

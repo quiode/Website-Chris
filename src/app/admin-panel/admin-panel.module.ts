@@ -14,6 +14,8 @@ import { LoginGuard } from './login.guard';
 import { SharedModule } from '../shared/shared.module';
 import { StillItemComponent } from './stills/still-item/still-item.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AdminStillsApiService } from './stills/admin-stills-api.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -23,6 +25,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     NgbModule,
     SharedModule,
     DragDropModule,
+    HttpClientModule,
   ],
   declarations: [
     AdminPanelComponent,
@@ -32,6 +35,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     LoginComponent,
     StillItemComponent,
   ],
-  providers: [AuthService, AuthGuard, LoginGuard],
+  providers: [AuthService, AuthGuard, LoginGuard, AdminStillsApiService],
 })
 export class AdminPanelModule {}

@@ -1,12 +1,7 @@
 <div class="item-container position">
   <ng-content></ng-content>
 </div>
-<img
-  src="{{ still?.thumbnailUrl }}"
-  alt="Preview of the Image"
-  (click)="openImage()"
-  class="item-container preview"
-/>
+<img src="{{ thumbnailUrl }}" alt="Preview of the Image" (click)="openImage()" class="item-container preview" />
 <div (click)="delete()" class="item-container delete">
   <img src="assets/DeleteButton.svg" />
 </div>

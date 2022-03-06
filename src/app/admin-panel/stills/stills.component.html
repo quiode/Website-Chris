@@ -1,36 +1,18 @@
 <div id="container">
   <!-- <div id="title">Upload Stills</div> -->
-  <app-file-upload
-    fileType="image/jpeg"
-    (filesEvent)="filesSelected($event)"
-    class="button"
-  ></app-file-upload>
-  <div
-    id="item-container"
-    cdkDropList
-    (cdkDropListDropped)="drop($event)"
-    cdkDragBoundary="item-container"
-  >
-    <app-still-item
-      cdkDrag
-      *ngFor="let still of stills; index as i"
-      [still]="still"
-      id="stillItem"
-      [cdkDragData]="still"
-      >{{ i
-      }}<img
-        style="max-width: 15vw; max-height: 15vh"
-        *cdkDragPreview
-        [src]="still.thumbnailUrl"
-        [alt]="still.id"
-    /></app-still-item>
+  <app-file-upload fileType="image/jpeg" (filesEvent)="filesSelected($event)" class="button"></app-file-upload>
+  <div id="item-container" cdkDropList (cdkDropListDropped)="drop($event)" cdkDragBoundary="item-container">
+    <app-still-item cdkDrag *ngFor="let still of stills; index as i" [still]="still" id="stillItem"
+      [cdkDragData]="still" (deleteStill)="onDelete($event)">{{ i
+      }}
+      <img style="max-width: 15vw; max-height: 15vh" *cdkDragPreview [src]="still.thumbnail" [alt]="still.id" />
+    </app-still-item>
   </div>
-  <button
-    type="button"
-    class="btn btn-success button"
-    (click)="submit()"
-    [disabled]="selectedFiles ? selectedFiles.length <= 0 : true"
-  >
+  <button [ngStyle]="{'display': !finished ? 'none' : 'inline-block'}" type="button" class="btn btn-success button"
+    (click)="submit()" [disabled]="selectedFiles ? selectedFiles.length <= 0 : true">
     Submit
   </button>
+  <ngb-progressbar id="progress" type="success" [value]="progress" [ngStyle]="{'display': finished ? 'none' : 'flex'}">
+    Uploading...
+  </ngb-progressbar>
 </div>
