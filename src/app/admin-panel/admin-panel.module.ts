@@ -16,6 +16,7 @@ import { StillItemComponent } from './stills/still-item/still-item.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AdminStillsApiService } from './stills/admin-stills-api.service';
 import { HttpClientModule } from '@angular/common/http';
+import { VideoItemComponent } from './videos/video-item/video-item.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
     MusicComponent,
     LoginComponent,
     StillItemComponent,
+    VideoItemComponent,
   ],
   providers: [AuthService, AuthGuard, LoginGuard, AdminStillsApiService],
 })

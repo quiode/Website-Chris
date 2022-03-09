@@ -1,1 +1,21 @@
-<p>videos works!</p>
+<div id="container">
+  <div id="uploadForm">
+    <form>
+      <input type="file" accept="video/mp4" (change)="onVideoSelected($event)" #videoUpload />
+      <input type="file" accept="image/jpeg" multiple (change)="onImagesSelected($event)" #imagesUpload />
+      <button class="btn btn-primary" (click)="videoUpload.click()">Select Video</button>
+      <button class="btn btn-primary" (click)="imagesUpload.click()">Select Images</button>
+      <label for="title">Title</label>
+      <input type="tel" name="title">
+      <label for="subtitle">Subtitle</label>
+      <input type="text" name="subtitle">
+      <label for="url">Url</label>
+      <input type="url" name="url">
+      <button class="btn btn-danger">Submit</button>
+    </form>
+  </div>
+  <div id="videoListing">
+    <app-video-item *ngFor="let video of videos" [video]="video"></app-video-item>
+    <button class="btn btn-danger" type="button">Update Changes</button>
+  </div>
+</div>

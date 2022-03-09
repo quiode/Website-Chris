@@ -1,7 +1,7 @@
 <div id="container">
   <!-- <div id="title">Upload Stills</div> -->
   <app-file-upload fileType="image/jpeg" (filesEvent)="filesSelected($event)" class="button"
-    [ngStyle]="{'display': stillsChanged ? 'none' : 'inline-block'}"></app-file-upload>
+    [ngStyle]="{'display': stillsChanged ? 'none' : 'inline-block'}">Select Stills</app-file-upload>
   <div id="br" [ngStyle]="{'display': !selectedFiles ? 'none' : 'block'}"></div>
   <div id=" item-container" cdkDropList (cdkDropListDropped)="drop($event)" cdkDragBoundary="item-container"
     [ngStyle]="{'display': selectedFiles ? 'none' : 'inline-block'}">
