@@ -1,21 +1,68 @@
 <div id="container">
   <div id="uploadForm">
-    <form>
-      <input type="file" accept="video/mp4" (change)="onVideoSelected($event)" #videoUpload />
-      <input type="file" accept="image/jpeg" multiple (change)="onImagesSelected($event)" #imagesUpload />
-      <button class="btn btn-primary" (click)="videoUpload.click()">Select Video</button>
-      <button class="btn btn-primary" (click)="imagesUpload.click()">Select Images</button>
-      <label for="title">Title</label>
-      <input type="tel" name="title">
-      <label for="subtitle">Subtitle</label>
-      <input type="text" name="subtitle">
-      <label for="url">Url</label>
-      <input type="url" name="url">
-      <button class="btn btn-danger">Submit</button>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" class="container-sm">
+      <input type="file" accept="video/mp4" #videoUpload class="file-input" formControlName="video"
+        (change)="onFileSelect($event, 'video')" />
+      <input type="file" accept="image/jpeg" (change)="onFileSelect($event, 'image1')" #image1Upload class="file-input"
+        formControlName="image1" />
+      <input type="file" accept="image/jpeg" (change)="onFileSelect($event, 'image2')" #image2Upload class="file-input"
+        formControlName="image2" />
+      <input type="file" accept="image/jpeg" (change)="onFileSelect($event, 'image3')" #image3Upload class="file-input"
+        formControlName="image3" />
+
+      <div class="row my-2">
+        <button (click)="videoUpload.click()" type="button"
+          [ngClass]="form.get('video')?.invalid ? 'btn-danger' : 'btn-success'" class="col btn">Select
+          Video</button>
+      </div>
+
+      <div class="row my-2">
+        <button (click)="image1Upload.click()" type="button"
+          [ngClass]="form.get('image1')?.invalid ? 'btn-danger' : 'btn-success'" class="col mr-1 btn">Select
+          Image
+          1</button>
+        <button (click)="image2Upload.click()" type="button"
+          [ngClass]="form.get('image2')?.invalid ? 'btn-danger' : 'btn-success'" class="col mx-1 btn
+          ">Select
+          Image
+          2</button>
+        <button (click)="image3Upload.click()" type="button"
+          [ngClass]="form.get('image3')?.invalid ? 'btn-danger' : 'btn-success'" class="col ml-1
+          btn">Select
+          Image
+          3</button>
+      </div>
+
+      <div class="row my-2">
+        <div class="col">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" name="title" formControlName="title" class="form-control"
+            [ngClass]="form.get('title')?.invalid ? 'is-invalid' : 'is-valid'">
+        </div>
+        <div class="col">
+          <label for="subtitle" class="form-label">Subtitle</label>
+          <input type="text" name="subtitle" formControlName="subtitle" class="form-control"
+            [ngClass]="form.get('subtitle')?.invalid ? 'is-invalid' : 'is-valid'">
+        </div>
+      </div>
+
+      <div class=" row my-2">
+        <div class="col">
+          <label for="url" class="form-label">Url</label>
+          <input type="url" name="url" formControlName="url" class="form-control"
+            [ngClass]="form.get('url')?.invalid ? 'is-invalid' : 'is-valid'">
+        </div>
+      </div>
+
+      <div class="row my-2">
+        <button class="btn btn-danger col" [disabled]="form.invalid" type="submit">Submit</button>
+      </div>
     </form>
   </div>
-  <div id="videoListing">
-    <app-video-item *ngFor="let video of videos" [video]="video"></app-video-item>
-    <button class="btn btn-danger" type="button">Update Changes</button>
+  <div id="videoListing" [ngClass]="form.dirty ? 'd-none' : 'container'">
+    <div class="row">
+      <app-video-item *ngFor="let video of videos" [video]="video" class="col"></app-video-item>
+      <button class="btn btn-danger col" type="button" [disabled]="!changes">Update Changes</button>
+    </div>
   </div>
 </div>
