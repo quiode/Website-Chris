@@ -1,0 +1,26 @@
+<div class="container" (mouseenter)="hovering = true" (mouseleave)="hovering = false">
+  <div [ngStyle]="{display: hovering ? 'initial' : 'none'}" class="row">
+    <div class="col">
+      <img [src]="imageURLs[0]" class="img-fluid">
+    </div>
+    <div class="col">
+      <img [src]="imageURLs[1]" class="img-fluid">
+    </div>
+    <div class="col">
+      <img [src]="imageURLs[2]" class="img-fluid">
+    </div>
+  </div>
+  <div [ngStyle]="{display: !hovering ? 'initial' : 'none'}" class="row">
+    <div class="col">
+      <a [href]="video?.url" target="_blank">Watch on YouTube</a>
+    </div>
+    <div class="col">
+      <div class="container">
+        <div class="fs-1 row text-wrap">{{ video?.title }}</div>
+        <div class="fs-3 row text-wrap">{{ video?.subtitle }}</div>
+      </div>
+    </div>
+    <div class="col">
+      <a href="" (click)="openPlayer()">Watch Here</a>
+    </div>
+  </div>
