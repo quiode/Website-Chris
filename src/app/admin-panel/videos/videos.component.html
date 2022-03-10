@@ -1,5 +1,5 @@
 <div id="container">
-  <div id="uploadForm" [ngStyle]="uploadProgress != null ? {display: 'none'} : {display:'initial'}">
+  <div id="uploadForm" [ngStyle]="uploadProgress != null || changes ? {display: 'none'} : {display:'initial'}">
     <form (ngSubmit)="onSubmit()" [formGroup]="form" class="container-sm">
       <input type="file" accept="video/mp4" #videoUpload class="file-input" formControlName="video"
         (change)="onFileSelect($event, 'video')" />
@@ -61,10 +61,11 @@
   </div>
   <ngb-progressbar class="col" type="success" [value]="uploadProgress ? uploadProgress : 0"
     [ngStyle]="uploadProgress == null ? {display: 'none'} : {display:'initial'}">Uploading...</ngb-progressbar>
-  <div id="videoListing" [ngClass]="form.dirty ? 'd-none' : 'container'">
-    <div class="row">
-      <app-video-item *ngFor="let video of videos" [video]="video" class="col"></app-video-item>
-      <button class="btn btn-danger col" type="button" [disabled]="!changes">Update Changes</button>
+  <div class="border p-4" id="videoListing" [ngClass]="form.dirty ? 'd-none' : 'container'">
+    <div class="row" cdkDropList>
+      <app-video-item *ngFor="let video of videos" [video]="video" class="row my-2" style="cursor: pointer;" cdkDrag>
+      </app-video-item>
     </div>
+    <button class="btn btn-danger row" type="button" [disabled]="!changes">Update Changes</button>
   </div>
 </div>

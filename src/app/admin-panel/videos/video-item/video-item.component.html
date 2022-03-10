@@ -1,1 +1,20 @@
-<p>video-item works!</p>
+<div class="conatiner">
+  <div class="row">
+    <div class="col-sm-1 text-center my-auto">{{ video?.position }}</div>
+    <input class="col form-control mx-1" placeholder="url" [(ngModel)]="video.url">
+    <img class="col mx-1" [src]="imgUrl1">
+    <img class="col mx-1" [src]="imgUrl2">
+    <img class="col mx-1" [src]="imgUrl3">
+    <button class="btn btn-primary col mx-1">Watch Video</button>
+    <div class="col my-auto">
+      <div class="container">
+        <div class="row">
+          {{ video?.line1 }}
+        </div>
+        <div class="row">
+          {{ video?.line2 }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

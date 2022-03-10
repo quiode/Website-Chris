@@ -7,7 +7,7 @@ import { AdminVideosComponent } from './videos/videos.component';
 import { MusicComponent } from './music/music.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { LoginGuard } from './login.guard';
@@ -27,6 +27,7 @@ import { VideoItemComponent } from './videos/video-item/video-item.component';
     SharedModule,
     DragDropModule,
     HttpClientModule,
+    FormsModule,
   ],
   declarations: [
     AdminPanelComponent,

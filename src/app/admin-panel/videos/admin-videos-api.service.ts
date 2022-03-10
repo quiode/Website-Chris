@@ -70,4 +70,21 @@ export class AdminVideosApiService {
 
     return uploadProgress;
   }
+
+  async getImageUrl(image: string, id: string) {
+    return await new Promise<string>((resolve, reject) => {
+      this.httpClient.get(this.backendUrl + id + '/' + image, { responseType: 'blob' }).subscribe({
+        next: (blob) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onloadend = () => {
+            resolve(reader.result as string);
+          };
+        },
+        error: (err) => {
+          reject(err);
+        },
+      });
+    });
+  }
 }

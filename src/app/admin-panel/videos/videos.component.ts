@@ -5,12 +5,12 @@ import { fileTypeValidator } from '../../shared/validators/file-type-validator.d
 
 export interface Video {
   id: string;
-  title: string;
-  subtitle: string;
+  line1: string;
+  line2: string;
   url: string;
-  image1: string;
-  image2: string;
-  image3: string;
+  picture1Id: string;
+  picture2Id: string;
+  picture3Id: string;
   position: number;
 }
 @Component({
