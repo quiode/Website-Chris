@@ -1,5 +1,5 @@
 <div id="container">
-  <div id="uploadForm">
+  <div id="uploadForm" [ngStyle]="uploadProgress != null ? {display: 'none'} : {display:'initial'}">
     <form (ngSubmit)="onSubmit()" [formGroup]="form" class="container-sm">
       <input type="file" accept="video/mp4" #videoUpload class="file-input" formControlName="video"
         (change)="onFileSelect($event, 'video')" />
@@ -59,6 +59,8 @@
       </div>
     </form>
   </div>
+  <ngb-progressbar class="col" type="success" [value]="uploadProgress ? uploadProgress : 0"
+    [ngStyle]="uploadProgress == null ? {display: 'none'} : {display:'initial'}">Uploading...</ngb-progressbar>
   <div id="videoListing" [ngClass]="form.dirty ? 'd-none' : 'container'">
     <div class="row">
       <app-video-item *ngFor="let video of videos" [video]="video" class="col"></app-video-item>

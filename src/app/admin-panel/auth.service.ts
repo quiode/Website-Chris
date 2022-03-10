@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { catchError, Observable, Subject, Subscriber } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, Subject, Subscriber } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -15,16 +15,18 @@ export class AuthService {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.loggedIn.subscribe((isLoggedIn) => {
-      this.isLoggedIn = isLoggedIn;
-    });
-    this.loggedIn.next(false);
+    let token = localStorage.getItem('token') || '';
+    if (!jwtHelper.isTokenExpired(token)) {
+      this.loggedIn.next(true);
+      this.token = token;
+    } else {
+      localStorage.removeItem('token');
+    }
   }
   private backendUrl = environment.apiUrl + 'auth/';
-  private loggedIn = new Subject<boolean>();
+  private loggedIn = new BehaviorSubject<boolean>(false);
   private token = '';
   private timeout: NodeJS.Timeout | null = null;
-  private isLoggedIn = false;
 
   /**
    * @param username username of the user
@@ -59,6 +61,7 @@ export class AuthService {
               } else {
                 this.loggedIn.next(true);
                 this.token = token.access_token;
+                localStorage.setItem('token', token.access_token);
                 this.timeout = setTimeout(() => {
                   this.logout();
                   if (this.route.snapshot.url.toString().includes('admin')) {
@@ -76,6 +79,7 @@ export class AuthService {
 
   logout(): void {
     this.token = '';
+    localStorage.removeItem('token');
     this.loggedIn.next(false);
     if (this.timeout != null) {
       clearTimeout(this.timeout);
@@ -84,7 +88,7 @@ export class AuthService {
   }
 
   getIsLoggedIn(): boolean {
-    return this.isLoggedIn;
+    return this.loggedIn.getValue();
   }
 
   getLoggedIn(): Observable<boolean> {

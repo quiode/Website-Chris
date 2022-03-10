@@ -42,6 +42,7 @@ export class AdminVideosComponent implements OnInit {
   ngOnInit(): void {
     this.videosApi.videos.subscribe((videos) => {
       this.videos = videos;
+      this.changes = false;
     });
   }
 
@@ -76,6 +77,8 @@ export class AdminVideosComponent implements OnInit {
         },
         complete: () => {
           this.uploadProgress = null;
+          this.changes = false;
+          this.files = {};
           this.form.reset();
         },
       });
