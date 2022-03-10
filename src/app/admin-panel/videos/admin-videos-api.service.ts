@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Video } from './videos.component';
-import { Subject, finalize } from 'rxjs';
+import { Subject, finalize, map, BehaviorSubject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpEventType } from '@angular/common/http';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 export interface PostVideo {
   video: File;
@@ -19,20 +20,18 @@ export interface PostVideo {
 })
 export class AdminVideosApiService {
   constructor(private httpClient: HttpClient) {
-    this.videos.subscribe((videos) => {
-      this.videosSnapshot = videos;
-    });
     this.getVideos().subscribe((videos) => {
       this.videos.next(videos);
     });
+
+    this.videos.pipe(map((videos) => videos.sort((a, b) => a.position - b.position)));
   }
   backendUrl = environment.apiUrl + 'videos/';
 
-  private videosSnapshot: Video[] = [];
-  videos = new Subject<Video[]>();
+  videos = new BehaviorSubject<Video[]>([]);
 
   getVideoSnapshot(): Video[] {
-    return this.videosSnapshot;
+    return this.videos.value;
   }
 
   getVideos() {
@@ -85,6 +84,77 @@ export class AdminVideosApiService {
           reject(err);
         },
       });
+    });
+  }
+
+  /**
+   * removes a video from the old position and moves it to the new position
+   * @param prevPosition old position of the video
+   * @param newPosition new position of the video
+   */
+  insert(prevPosition: number, newPosition: number) {
+    if (prevPosition == newPosition) {
+      return;
+    }
+    const videos = this.videos.value;
+    moveItemInArray(videos, prevPosition, newPosition);
+    videos.map((video, index) => {
+      video.position = index;
+    });
+    this.videos.next(videos);
+  }
+
+  /**
+   * position has to be unique, line1 and line2 not empty and the url has to be a valid url
+   * @param videos return true if all elements are valid
+   */
+  checkElements(videos: Video[]) {
+    return videos.every((video, index) => {
+      return (
+        video.position != null &&
+        video.position != undefined &&
+        video.position >= 0 &&
+        video.position < videos.length &&
+        video.position == index &&
+        video.line1 != null &&
+        video.line1 != undefined &&
+        video.line1 != '' &&
+        video.line2 != null &&
+        video.line2 != undefined &&
+        video.line2 != '' &&
+        video.url != null &&
+        video.url != undefined &&
+        video.url != '' &&
+        RegExp(
+          /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/
+        ).test(video.url)
+      );
+    });
+  }
+
+  replaceVideoMetadata(video: Video[]) {
+    return new Promise<boolean>((resolve, reject) => {
+      this.httpClient
+        .patch(
+          this.backendUrl,
+          video.map((video) => {
+            return {
+              id: video.id,
+              position: video.position,
+              line1: video.line1,
+              line2: video.line2,
+              url: video.url,
+            };
+          })
+        )
+        .subscribe({
+          next: (data) => {
+            resolve(true);
+          },
+          error: (err) => {
+            reject(err);
+          },
+        });
     });
   }
 }

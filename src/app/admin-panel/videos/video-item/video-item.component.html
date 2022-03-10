@@ -1,20 +1,18 @@
-<div class="conatiner">
+<div class="conatiner border py-3">
   <div class="row">
     <div class="col-sm-1 text-center my-auto">{{ video?.position }}</div>
-    <input class="col form-control mx-1" placeholder="url" [(ngModel)]="video.url">
-    <img class="col mx-1" [src]="imgUrl1">
-    <img class="col mx-1" [src]="imgUrl2">
-    <img class="col mx-1" [src]="imgUrl3">
+    <textarea class="col form-control mx-1" placeholder="url" [value]="video.url" (change)="urlInputChange($event)"
+      required></textarea>
+    <img class="col mx-1 img-fluid" [src]="imgUrl1">
+    <img class="col mx-1 img-fluid" [src]="imgUrl2">
+    <img class="col mx-1 img-fluid" [src]="imgUrl3">
     <button class="btn btn-primary col mx-1">Watch Video</button>
-    <div class="col my-auto">
-      <div class="container">
-        <div class="row">
-          {{ video?.line1 }}
-        </div>
-        <div class="row">
-          {{ video?.line2 }}
-        </div>
-      </div>
+    <div class="col my-auto ms-3">
+      <textarea class="row form-control mb-1" placeholder="title" [value]="video.line1"
+        (change)="titleInputChange($event)" required></textarea>
+      <textarea class="row form-control mt-1" placeholder="subtitle" [value]="video.line2"
+        (change)="subtitleInputChange($event)" required></textarea>
     </div>
+    <button class="col btn btn-danger me-3">Delete</button>
   </div>
 </div>

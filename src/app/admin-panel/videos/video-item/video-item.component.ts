@@ -18,6 +18,7 @@ export class VideoItemComponent implements OnInit {
     picture3Id: '',
     position: 0,
   };
+  @Output() videoChange = new EventEmitter<Video>();
   imgUrl1: string = '';
   imgUrl2: string = '';
   imgUrl3: string = '';
@@ -34,5 +35,20 @@ export class VideoItemComponent implements OnInit {
     this.videosService.getImageUrl(this.video.picture3Id, this.video.id).then((url) => {
       this.imgUrl3 = url;
     });
+  }
+
+  urlInputChange(event: Event) {
+    this.video.url = (event.target as HTMLInputElement).value;
+    this.videoChange.emit(this.video);
+  }
+
+  titleInputChange(event: Event) {
+    this.video.line1 = (event.target as HTMLInputElement).value;
+    this.videoChange.emit(this.video);
+  }
+
+  subtitleInputChange(event: Event) {
+    this.video.line2 = (event.target as HTMLInputElement).value;
+    this.videoChange.emit(this.video);
   }
 }

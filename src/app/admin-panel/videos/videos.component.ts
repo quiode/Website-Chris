@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminVideosApiService } from './admin-videos-api.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { fileTypeValidator } from '../../shared/validators/file-type-validator.directive';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 export interface Video {
   id: string;
@@ -42,7 +43,6 @@ export class AdminVideosComponent implements OnInit {
   ngOnInit(): void {
     this.videosApi.videos.subscribe((videos) => {
       this.videos = videos;
-      this.changes = false;
     });
   }
 
@@ -77,13 +77,44 @@ export class AdminVideosComponent implements OnInit {
         },
         complete: () => {
           this.uploadProgress = null;
-          this.changes = false;
           this.files = {};
           this.form.reset();
         },
       });
     } else {
       alert('Invalid form');
+    }
+  }
+
+  onDrop(event: CdkDragDrop<string[]>) {
+    this.videosApi.insert(event.previousIndex, event.currentIndex);
+  }
+
+  videoChanged(video: Video) {
+    const videoIndex = this.videos.indexOf(video);
+    if (video) {
+      this.changes = true;
+      this.videos[videoIndex] = video;
+      this.videosApi.videos.next(this.videos);
+    }
+  }
+
+  uploadChanges() {
+    const videos = this.videosApi.videos.value;
+    if (this.videosApi.checkElements(videos)) {
+      this.videosApi.replaceVideoMetadata(videos).then(
+        (result) => {
+          this.changes = false;
+          this.videosApi.getVideos();
+        },
+        (error) => {
+          alert('Error: ' + error);
+          this.changes = false;
+          this.videosApi.getVideos();
+        }
+      );
+    } else {
+      alert('Form is not valid');
     }
   }
 }

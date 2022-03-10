@@ -63,9 +63,13 @@
     [ngStyle]="uploadProgress == null ? {display: 'none'} : {display:'initial'}">Uploading...</ngb-progressbar>
   <div class="border p-4" id="videoListing" [ngClass]="form.dirty ? 'd-none' : 'container'">
     <div class="row" cdkDropList>
-      <app-video-item *ngFor="let video of videos" [video]="video" class="row my-2" style="cursor: pointer;" cdkDrag>
+      <app-video-item *ngFor="let video of videos" [video]="video" class="row my-2" style="cursor: pointer;" cdkDrag
+        (cdkDragDropped)="onDrop($event)" [ngStyle]="{order: video.position}" (videoChange)="videoChanged($event);">
       </app-video-item>
     </div>
-    <button class="btn btn-danger row" type="button" [disabled]="!changes">Update Changes</button>
+    <div class="row">
+      <button class="btn btn-danger col" type="button" [disabled]="!changes" (click)="uploadChanges()">Update
+        Changes</button>
+    </div>
   </div>
 </div>
