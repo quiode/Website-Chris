@@ -43,7 +43,7 @@ const routes: Routes = [
       { path: 'stills', component: AdminStillsComponent, canActivate: [AuthGuard] },
       { path: 'videos', component: AdminVideosComponent, canActivate: [AuthGuard] },
       { path: 'music', component: AdminMusicComponent, canActivate: [AuthGuard] },
-      { path: '**', component: NotfoundComponent, canActivate: [AuthGuard] },
+      { path: '**', redirectTo: 'login' },
     ],
   },
   { path: 'videos', component: VideosComponent },
