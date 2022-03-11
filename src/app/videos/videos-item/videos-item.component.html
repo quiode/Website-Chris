@@ -1,19 +1,22 @@
-<div class="container" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()">
+<div class="seperator"></div>
+<div class="container fs-1" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()">
   <div class="items-container" id="images" #images>
-    <img class="video-item" [src]="imageURLs[0]">
+    <img class="video-item" [src]="imageURLs[0]" (click)="openLink(video?.url || '')">
     <img class="video-item" [src]="imageURLs[1]">
-    <img class="video-item" [src]="imageURLs[2]">
+    <img class="video-item" [src]="imageURLs[2]" (click)="openPlayer()">
   </div>
   <div class="items-container" id="links" #links>
-    <div class="video-link video-item" id="yt">Watch on YouTube</div>
+    <div class="video-link video-item" id="yt" (click)="openLink(video?.url || '')"><span>Watch on another
+        Website</span></div>
     <div class="video-item">
       <div>
-        {{ video?.line1 }}
+        <span class="fs-2">{{ video?.line1 }}</span>
       </div>
       <div>
-        {{ video?.line2 }}
+        <span class="fs-4">{{ video?.line2 }}</span>
       </div>
     </div>
-    <div class="video-link video-item" id="here">Watch Here</div>
+    <div class="video-link video-item" id="here" (click)="openPlayer()"><span>Watch Here</span></div>
   </div>
 </div>
+<div class="seperator"></div>

@@ -1,4 +1,12 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { Video } from '../../admin-panel/videos/videos.component';
 import { AdminVideosApiService } from '../../admin-panel/videos/admin-videos-api.service';
 
@@ -9,6 +17,7 @@ import { AdminVideosApiService } from '../../admin-panel/videos/admin-videos-api
 })
 export class VideosItemComponent implements OnInit {
   @Input() video: Video | null = null;
+  @Output() playVideo = new EventEmitter<string>();
   @ViewChild('images') images!: ElementRef;
   @ViewChild('links') links!: ElementRef;
 
@@ -30,7 +39,9 @@ export class VideosItemComponent implements OnInit {
     }
   }
 
-  openPlayer() {}
+  openPlayer() {
+    this.playVideo.emit(this.video?.id);
+  }
 
   mouseEnter() {
     (this.images.nativeElement as HTMLDivElement).classList.add('hover');
@@ -40,5 +51,13 @@ export class VideosItemComponent implements OnInit {
   mouseLeave() {
     (this.images.nativeElement as HTMLDivElement).classList.remove('hover');
     (this.links.nativeElement as HTMLDivElement).classList.remove('hover');
+  }
+
+  openLink(link: string) {
+    if (link.startsWith('http')) {
+      window.open(link, '_blank');
+    } else {
+      window.open(`https://${link}`, '_blank');
+    }
   }
 }
