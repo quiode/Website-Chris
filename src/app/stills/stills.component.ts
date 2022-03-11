@@ -34,6 +34,7 @@ export class StillsComponent implements OnInit {
                 this.onClick(still.id);
               });
               this.renderer.setStyle(image, 'order', `${this.stillsApi.getPosition(still.id)}`);
+              this.renderer.addClass(image, 'shadow-lg');
               this.renderer.appendChild(this.stillsContainer.nativeElement, image);
             }
           });
