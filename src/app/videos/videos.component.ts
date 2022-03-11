@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Video } from '../admin-panel/videos/videos.component';
 import { AdminVideosApiService } from '../admin-panel/videos/admin-videos-api.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-videos',
@@ -9,6 +10,7 @@ import { AdminVideosApiService } from '../admin-panel/videos/admin-videos-api.se
 })
 export class VideosComponent implements OnInit {
   videos: Video[] = [];
+  videoUrl: string = '';
 
   constructor(private videosService: AdminVideosApiService) {}
 
@@ -17,5 +19,9 @@ export class VideosComponent implements OnInit {
     this.videosService.videos.subscribe((videos) => {
       this.videos = videos;
     });
+  }
+
+  playVideo(id: string) {
+    this.videoUrl = environment.apiUrl + 'videos/' + id;
   }
 }

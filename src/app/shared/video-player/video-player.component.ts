@@ -1,5 +1,16 @@
-import { Component, Input, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  OnDestroy,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import videojs from 'video.js';
+import { VideoJsPlayer } from 'video.js';
 import { FullscreenService } from '../../stills/photo-viewer/fullscreen.service';
 
 @Component({
@@ -7,13 +18,17 @@ import { FullscreenService } from '../../stills/photo-viewer/fullscreen.service'
   templateUrl: './video-player.component.html',
   styleUrls: ['./video-player.component.scss'],
 })
-export class VideoPlayerComponent implements OnInit, OnDestroy {
+export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   @Input() videoUrl = '';
-  @ViewChild('player') player!: HTMLVideoElement;
+  @Output() close = new EventEmitter<void>();
+  @ViewChild('player') playerElement!: HTMLVideoElement;
+
+  player: VideoJsPlayer | null = null;
+
   constructor(private fullScreenService: FullscreenService) {}
 
   ngOnInit(): void {
-    videojs(this.player, {
+    this.player = videojs(this.playerElement, {
       controls: true,
       autoplay: false,
       preload: 'auto',
@@ -25,5 +40,12 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.fullScreenService.closeFullscreen();
     document.body.style.overflow = 'auto';
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('videoUrl' in changes) {
+      console.log(this.videoUrl);
+      this.player?.src(this.videoUrl);
+    }
   }
 }

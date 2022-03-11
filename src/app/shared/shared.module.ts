@@ -6,6 +6,6 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
 @NgModule({
   declarations: [FileUploadComponent, VideoPlayerComponent],
   imports: [CommonModule],
-  exports: [FileUploadComponent],
+  exports: [FileUploadComponent, VideoPlayerComponent],
 })
 export class SharedModule {}
