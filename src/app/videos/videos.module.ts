@@ -3,15 +3,9 @@ import { CommonModule } from '@angular/common';
 import { VideosComponent } from './videos.component';
 import { VideosItemComponent } from './videos-item/videos-item.component';
 
-
-
 @NgModule({
-  declarations: [
-    VideosComponent,
-    VideosItemComponent
-  ],
-  imports: [
-    CommonModule
-  ]
+  declarations: [VideosComponent, VideosItemComponent],
+  imports: [CommonModule],
+  providers: [],
 })
-export class VideosModule { }
+export class VideosModule {}

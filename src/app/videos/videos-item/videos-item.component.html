@@ -1,26 +1,19 @@
-<div class="container" (mouseenter)="hovering = true" (mouseleave)="hovering = false">
-  <div [ngStyle]="{display: hovering ? 'initial' : 'none'}" class="row">
-    <div class="col">
-      <img [src]="imageURLs[0]" class="img-fluid">
-    </div>
-    <div class="col">
-      <img [src]="imageURLs[1]" class="img-fluid">
-    </div>
-    <div class="col">
-      <img [src]="imageURLs[2]" class="img-fluid">
-    </div>
+<div class="container" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()">
+  <div class="items-container" id="images" #images>
+    <img class="video-item" [src]="imageURLs[0]">
+    <img class="video-item" [src]="imageURLs[1]">
+    <img class="video-item" [src]="imageURLs[2]">
   </div>
-  <div [ngStyle]="{display: !hovering ? 'initial' : 'none'}" class="row">
-    <div class="col">
-      <a [href]="video?.url" target="_blank">Watch on YouTube</a>
-    </div>
-    <div class="col">
-      <div class="container">
-        <div class="fs-1 row text-wrap">{{ video?.line1 }}</div>
-        <div class="fs-3 row text-wrap">{{ video?.line2 }}</div>
+  <div class="items-container" id="links" #links>
+    <div class="video-link video-item" id="yt">Watch on YouTube</div>
+    <div class="video-item">
+      <div>
+        {{ video?.line1 }}
+      </div>
+      <div>
+        {{ video?.line2 }}
       </div>
     </div>
-    <div class="col">
-      <a href="" (click)="openPlayer()">Watch Here</a>
-    </div>
+    <div class="video-link video-item" id="here">Watch Here</div>
   </div>
+</div>

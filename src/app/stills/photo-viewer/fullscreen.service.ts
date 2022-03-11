@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class FullscreenService {
   constructor() {}
 
-  elem = document.documentElement;
+  private elem = document.documentElement;
 
   /* View in fullscreen */
   openFullscreen() {

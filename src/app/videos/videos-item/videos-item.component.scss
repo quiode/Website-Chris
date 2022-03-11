@@ -1,0 +1,40 @@
+.hover {
+  &#links {
+    display: flex;
+  }
+  &#images {
+    display: none;
+  }
+}
+
+#links {
+  display: none;
+}
+
+#images {
+  display: flex;
+}
+
+.video-item {
+  height: 30vh;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  font-size: 1rem;
+}
+
+.items-container {
+  display: flex;
+  justify-content: space-around;
+
+  @media screen and (max-width: 768px) {
+    justify-content: center;
+  }
+}
+
+.video-link {
+  background-color: green;
+
+  &:first-of-type {
+    background-color: red;
+  }
+}
