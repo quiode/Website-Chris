@@ -158,4 +158,24 @@ export class AdminVideosApiService {
         });
     });
   }
+
+  async deleteVideo(id: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.httpClient.delete(this.backendUrl + id).subscribe({
+        next: (data) => {
+          resolve();
+        },
+        error: (err) => {
+          console.log(err);
+          reject(err);
+        },
+      });
+    });
+  }
+
+  updateVideos() {
+    this.getVideos().subscribe((videos) => {
+      this.videos.next(videos);
+    });
+  }
 }

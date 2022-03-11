@@ -13,6 +13,6 @@
       <textarea class="row form-control mt-1" placeholder="subtitle" [value]="video.line2"
         (change)="subtitleInputChange($event)" required></textarea>
     </div>
-    <button class="col btn btn-danger me-3">Delete</button>
+    <button class="col btn btn-danger me-3" (click)="onDelete()">Delete</button>
   </div>
 </div>

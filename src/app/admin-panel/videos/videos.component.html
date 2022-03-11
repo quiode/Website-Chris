@@ -64,7 +64,8 @@
   <div class="border p-4" id="videoListing" [ngClass]="form.dirty ? 'd-none' : 'container'">
     <div class="row" cdkDropList>
       <app-video-item *ngFor="let video of videos" [video]="video" class="row my-2" style="cursor: pointer;" cdkDrag
-        (cdkDragDropped)="onDrop($event)" [ngStyle]="{order: video.position}" (videoChange)="videoChanged($event);">
+        (cdkDragDropped)="onDrop($event)" [ngStyle]="{order: video.position}" (videoChange)="videoChanged($event);"
+        (deleteVideo)="onDelete($event)">
       </app-video-item>
     </div>
     <div class="row">

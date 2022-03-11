@@ -105,16 +105,27 @@ export class AdminVideosComponent implements OnInit {
       this.videosApi.replaceVideoMetadata(videos).then(
         (result) => {
           this.changes = false;
-          this.videosApi.getVideos();
+          this.videosApi.updateVideos();
         },
         (error) => {
           alert('Error: ' + error);
           this.changes = false;
-          this.videosApi.getVideos();
+          this.videosApi.updateVideos();
         }
       );
     } else {
       alert('Form is not valid');
     }
+  }
+
+  onDelete(id: string) {
+    this.videosApi.deleteVideo(id).then(
+      (result) => {
+        this.videosApi.updateVideos();
+      },
+      (error) => {
+        alert('Error: ' + error);
+      }
+    );
   }
 }

@@ -19,6 +19,7 @@ export class VideoItemComponent implements OnInit {
     position: 0,
   };
   @Output() videoChange = new EventEmitter<Video>();
+  @Output() deleteVideo = new EventEmitter<string>();
   imgUrl1: string = '';
   imgUrl2: string = '';
   imgUrl3: string = '';
@@ -50,5 +51,9 @@ export class VideoItemComponent implements OnInit {
   subtitleInputChange(event: Event) {
     this.video.line2 = (event.target as HTMLInputElement).value;
     this.videoChange.emit(this.video);
+  }
+
+  onDelete() {
+    this.deleteVideo.emit(this.video.id);
   }
 }
