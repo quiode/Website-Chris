@@ -109,6 +109,7 @@ export class AdminVideosApiService {
    * @param videos return true if all elements are valid
    */
   checkElements(videos: Video[]) {
+    console.log(videos);
     return videos.every((video, index) => {
       return (
         video.position != null &&
@@ -126,7 +127,7 @@ export class AdminVideosApiService {
         video.url != undefined &&
         video.url != '' &&
         RegExp(
-          /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/
+          /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
         ).test(video.url)
       );
     });
