@@ -1,0 +1,26 @@
+.cover {
+  object-fit: contain;
+}
+
+.icon {
+}
+
+.text {
+  text-align: center;
+  height: fit-content;
+}
+
+.side-container {
+  align-items: center;
+  background-color: rgba(var(--primary-color), 1);
+  transition: background-color 0.4s ease;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(var(--secondary-color), 0.5);
+  }
+
+  * {
+    background-color: transparent;
+  }
+}

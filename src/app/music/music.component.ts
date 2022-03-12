@@ -16,4 +16,8 @@ export class MusicComponent implements OnInit {
       this.music = music;
     });
   }
+
+  getCoverUrl(id: string) {
+    return this.musicService.getCoverUrl(id);
+  }
 }
