@@ -10,6 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class MusicItemComponent implements OnInit {
   @Input() music: Music | null = null;
   coverUrl = '';
+  musicUrl = '';
 
   constructor(private musicService: MusicService, private sanitizer: DomSanitizer) {}
 
@@ -19,9 +20,22 @@ export class MusicItemComponent implements OnInit {
         this.coverUrl = url;
       });
     }
+    if (this.music) {
+      this.musicService.getAudioUrl(this.music.id).then((url) => {
+        this.musicUrl = url;
+      });
+    }
   }
 
   sanitize(url: string) {
     return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
+
+  openSpotify() {
+    if (this.music?.url.startsWith('http')) {
+      window.open(this.music?.url, '_blank');
+    } else {
+      window.open('http://' + this.music?.url, '_blank');
+    }
   }
 }
