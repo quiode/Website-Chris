@@ -69,6 +69,7 @@
   $color1: #5f4b8bff;
   $color2: #e69a8dff;
   background-color: $color1;
+  transition: background-color 0.25s ease-in-out;
   cursor: pointer;
 
   &:hover {

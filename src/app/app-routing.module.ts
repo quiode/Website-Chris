@@ -15,6 +15,7 @@ import { LoginComponent } from './admin-panel/login/login.component';
 import { AdminMusicComponent } from './admin-panel/music/music.component';
 import { AuthGuard } from './admin-panel/auth.guard';
 import { LoginGuard } from './admin-panel/login.guard';
+import { VideoPlayerComponent } from './shared/video-player/video-player.component';
 
 const routes: Routes = [
   {
@@ -46,7 +47,11 @@ const routes: Routes = [
       { path: '**', redirectTo: 'login' },
     ],
   },
-  { path: 'videos', component: VideosComponent },
+  {
+    path: 'videos',
+    component: VideosComponent,
+    children: [{ path: ':id', component: VideoPlayerComponent }],
+  },
   { path: 'aboutme', component: AboutmeComponent },
   { path: '', redirectTo: '/stills', pathMatch: 'full' },
   { path: '**', component: NotfoundComponent },

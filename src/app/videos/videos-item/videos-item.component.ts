@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { Video } from '../../admin-panel/videos/videos.component';
 import { AdminVideosApiService } from '../../admin-panel/videos/admin-videos-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-videos-item',
@@ -23,7 +24,7 @@ export class VideosItemComponent implements OnInit {
 
   imageURLs: string[] = ['', '', ''];
 
-  constructor(private videosApi: AdminVideosApiService) {}
+  constructor(private videosApi: AdminVideosApiService, private router: Router) {}
 
   ngOnInit(): void {
     if (this.video) {
@@ -40,7 +41,9 @@ export class VideosItemComponent implements OnInit {
   }
 
   openPlayer() {
-    this.playVideo.emit(this.video?.id);
+    if (this.video) {
+      this.router.navigate(['/videos', this.video.id]);
+    }
   }
 
   mouseEnter() {

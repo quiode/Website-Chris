@@ -1,5 +1,5 @@
-<div id="player">
-  <video #player controls>
+<div id="player" (click)="close()">
+  <video controls #video>
     <source [src]="videoUrl" type="video/mp4">
   </video>
 </div>

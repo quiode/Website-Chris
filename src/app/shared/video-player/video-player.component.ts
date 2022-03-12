@@ -1,51 +1,56 @@
 import {
   Component,
-  Input,
   OnInit,
   ViewChild,
   OnDestroy,
-  Output,
-  EventEmitter,
-  OnChanges,
-  SimpleChanges,
+  HostListener,
+  ElementRef,
+  AfterViewInit,
 } from '@angular/core';
-import videojs from 'video.js';
-import { VideoJsPlayer } from 'video.js';
-import { FullscreenService } from '../../stills/photo-viewer/fullscreen.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-video-player',
   templateUrl: './video-player.component.html',
   styleUrls: ['./video-player.component.scss'],
 })
-export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
-  @Input() videoUrl = '';
-  @Output() close = new EventEmitter<void>();
-  @ViewChild('player') playerElement!: HTMLVideoElement;
+export class VideoPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('video') video: ElementRef<HTMLVideoElement> | null = null;
+  videoUrl = '';
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.close();
+    }
+  }
 
-  player: VideoJsPlayer | null = null;
-
-  constructor(private fullScreenService: FullscreenService) {}
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
-    // this.player = videojs(this.playerElement, {
-    //   controls: true,
-    //   autoplay: false,
-    //   preload: 'auto',
-    // });
-    this.fullScreenService.openFullscreen();
     document.body.style.overflow = 'hidden';
+    this.videoUrl = environment.apiUrl + 'videos/' + this.activatedRoute.snapshot.params['id'];
+    screen.orientation.lock('landscape-primary');
+    if (this.video) {
+      this.video.nativeElement.requestFullscreen();
+      this.video.nativeElement.play();
+    }
+  }
+
+  ngAfterViewInit(): void {
+    if (this.video) {
+      this.video.nativeElement.requestFullscreen();
+      this.video.nativeElement.play();
+    }
   }
 
   ngOnDestroy(): void {
-    this.fullScreenService.closeFullscreen();
     document.body.style.overflow = 'auto';
+    document.exitFullscreen();
+    screen.orientation.unlock();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    //   if ('videoUrl' in changes) {
-    //     console.log(this.videoUrl);
-    //     this.player?.src(this.videoUrl);
-    //   }
+  close(): void {
+    this.router.navigate(['/videos']);
   }
 }

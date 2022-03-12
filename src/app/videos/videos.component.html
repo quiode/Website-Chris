@@ -3,5 +3,5 @@
     <app-videos-item class="col m-2" [video]="video" (playVideo)="playVideo($event)"></app-videos-item>
   </div>
 </div>
-<app-video-player *ngIf="videoUrl != ''" [videoUrl]="videoUrl" (close)="videoUrl=''">
-</app-video-player>
+<router-outlet>
+</router-outlet>
