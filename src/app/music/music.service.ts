@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Subject, BehaviorSubject, finalize } from 'rxjs';
+import { HttpClient, HttpEventType, HttpEvent } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { join } from 'path-browserify';
 
@@ -26,5 +26,38 @@ export class MusicService {
     this.httpClient.get<Music[]>(this.backendUrl).subscribe((music) => {
       this.music.next(music);
     });
+  }
+
+  saveMusic(song: File, image: File, url: string): Subject<number> {
+    const uploadProgress = new Subject<number>();
+    const data = new FormData();
+    data.append('song', song);
+    data.append('cover', image);
+    data.append('url', url);
+    this.httpClient
+      .post<Music>(this.backendUrl, data, { reportProgress: true, observe: 'events' })
+      .pipe(
+        finalize(() => {
+          uploadProgress.complete();
+          this.updateMusic();
+        })
+      )
+      .subscribe({
+        next: (event) => {
+          if (event.type == HttpEventType.UploadProgress) {
+            if (event.total) {
+              uploadProgress.next(Math.round(100 * (event.loaded / event.total)));
+            }
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          alert('Upload failed: ' + err.error.message);
+          uploadProgress.error(err);
+          uploadProgress.complete();
+        },
+      });
+    uploadProgress.next(0);
+    return uploadProgress;
   }
 }

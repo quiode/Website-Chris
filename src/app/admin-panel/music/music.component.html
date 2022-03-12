@@ -1,9 +1,9 @@
-<form class="container" [formGroup]="uploadForm" (ngSubmit)="submit()">
+<form class="container" [formGroup]="uploadForm" (ngSubmit)="submit()" *ngIf="uploadProgress==null">
   <div class="row my-2">
     <div class="col">
       <label for="audio" class="form-label">Audio File</label>
       <input class="form-control" type="file" accept="audio/mpeg" id="audio" formControlName="audio"
-        [ngClass]="applyClass('audio')">
+        [ngClass]="applyClass('audio')" (change)="onFileSelect($event, 'audio')">
       <div class="invalid-feedback">
         You must provide a valid audio file.
       </div>
@@ -11,7 +11,7 @@
     <div class="col">
       <label for="cover" class="form-label">Album Cover</label>
       <input accept="image/jpeg" class="form-control" type="file" id="cover" formControlName="cover"
-        [ngClass]="applyClass('cover')">
+        [ngClass]="applyClass('cover')" (change)="onFileSelect($event, 'cover')">
       <div class="invalid-feedback">
         You must provide a album cover.
       </div>
@@ -32,3 +32,5 @@
     </div>
   </div>
 </form>
+<ngb-progressbar class="row" type="success" [value]="uploadProgress ? uploadProgress : 0"
+  [ngStyle]="uploadProgress == null ? {display: 'none'} : {display:'initial'}">Uploading...</ngb-progressbar>
