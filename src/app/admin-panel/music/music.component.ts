@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { fileTypeValidator } from '../../shared/validators/file-type-validator.directive';
-import { MusicService } from '../../music/music.service';
+import { MusicService, Music } from '../../music/music.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-music',
   templateUrl: './music.component.html',
   styleUrls: ['./music.component.scss'],
 })
-export class AdminMusicComponent implements OnInit {
+export class AdminMusicComponent implements OnInit, OnDestroy {
   constructor(private musicService: MusicService) {}
   files: { [index: string]: File } = {};
   uploadProgress: number | null = null;
+  music: Music[] = [];
+  subscription: Subscription | null = null;
   uploadForm = new FormGroup({
     audio: new FormControl('', [Validators.required, fileTypeValidator(['mp3'])]),
     cover: new FormControl('', [Validators.required, fileTypeValidator(['jpg', 'jpeg'])]),
@@ -23,7 +26,11 @@ export class AdminMusicComponent implements OnInit {
     ]),
   });
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subscription = this.musicService.music.subscribe((music) => {
+      this.music = music;
+    });
+  }
 
   applyClass(controlName: string): string {
     const control = this.uploadForm.get(controlName);
@@ -71,6 +78,12 @@ export class AdminMusicComponent implements OnInit {
             },
           });
       }
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 }

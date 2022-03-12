@@ -1,0 +1,10 @@
+<div class="container my-3 py-2 border">
+  <div class="row align-items-center">
+    <div class="col-1 text-center" style="width: 4%;">{{ music?.position }}</div>
+    <input type="url" class="form-control col me-1" style="width: 25%;" value="{{ music?.url }}">
+    <img [src]="imageUrl" class="img-fluid col" alt="Album Cover Image">
+    <audio class="col" controls [src]="sanitize(audioUrl)">Your browser does not support the
+      <code>audio</code> element.</audio>
+    <button type="button" class="col btn btn-danger me-2">Delete</button>
+  </div>
+</div>

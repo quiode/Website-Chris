@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject, finalize } from 'rxjs';
-import { HttpClient, HttpEventType, HttpEvent } from '@angular/common/http';
+import { Subject, BehaviorSubject, finalize, map } from 'rxjs';
+import { HttpClient, HttpEventType } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { join } from 'path-browserify';
 
@@ -17,6 +17,7 @@ export interface Music {
 })
 export class MusicService {
   constructor(private httpClient: HttpClient) {
+    this.music.pipe(map((music) => music.sort((a, b) => a.position - b.position)));
     this.updateMusic();
   }
   private backendUrl = join(environment.apiUrl, 'music');
@@ -59,5 +60,27 @@ export class MusicService {
       });
     uploadProgress.next(0);
     return uploadProgress;
+  }
+
+  async getImageUrl(id: string): Promise<string> {
+    return '';
+  }
+
+  async getAudioUrl(id: string): Promise<string> {
+    return await new Promise<string>((resolve, reject) => {
+      this.httpClient.get(join(this.backendUrl, id), { responseType: 'blob' }).subscribe({
+        next: (blob) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onloadend = () => {
+            resolve(reader.result as string);
+          };
+        },
+        error: (err) => {
+          console.log(err);
+          reject(err);
+        },
+      });
+    });
   }
 }

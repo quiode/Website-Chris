@@ -17,6 +17,7 @@ import { AdminStillsApiService } from './stills/admin-stills-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { VideoItemComponent } from './videos/video-item/video-item.component';
 import { AdminMusicComponent } from './music/music.component';
+import { MusicItemComponent } from './music/music-item/music-item.component';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { AdminMusicComponent } from './music/music.component';
     LoginComponent,
     StillItemComponent,
     VideoItemComponent,
+    MusicItemComponent,
   ],
   providers: [AuthService, AuthGuard, LoginGuard, AdminStillsApiService],
 })

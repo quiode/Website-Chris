@@ -34,3 +34,8 @@
 </form>
 <ngb-progressbar class="row" type="success" [value]="uploadProgress ? uploadProgress : 0"
   [ngStyle]="uploadProgress == null ? {display: 'none'} : {display:'initial'}">Uploading...</ngb-progressbar>
+<div>
+  <div class="container border p-2" cdkDropList>
+    <app-music-item class="row mx-2" *ngFor="let musicPiece of music" [music]="musicPiece" cdkDrag></app-music-item>
+  </div>
+</div>
