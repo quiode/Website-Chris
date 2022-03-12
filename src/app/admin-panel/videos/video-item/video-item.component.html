@@ -6,7 +6,7 @@
     <img class="col mx-1 img-fluid" [src]="imgUrl1">
     <img class="col mx-1 img-fluid" [src]="imgUrl2">
     <img class="col mx-1 img-fluid" [src]="imgUrl3">
-    <button class="btn btn-primary col mx-1">Watch Video</button>
+    <button class="btn btn-primary col mx-1" (click)="openPlayer()">Watch Video</button>
     <div class="col my-auto ms-3">
       <textarea class="row form-control mb-1" placeholder="title" [value]="video.line1"
         (change)="titleInputChange($event)" required></textarea>

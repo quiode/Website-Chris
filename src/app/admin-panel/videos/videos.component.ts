@@ -88,6 +88,7 @@ export class AdminVideosComponent implements OnInit {
 
   onDrop(event: CdkDragDrop<string[]>) {
     this.videosApi.insert(event.previousIndex, event.currentIndex);
+    this.changes = true;
   }
 
   videoChanged(video: Video) {

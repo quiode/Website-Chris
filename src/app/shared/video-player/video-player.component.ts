@@ -51,6 +51,6 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   close(): void {
-    this.router.navigate(['/videos']);
+    this.router.navigate(['./'], { relativeTo: this.activatedRoute.parent });
   }
 }

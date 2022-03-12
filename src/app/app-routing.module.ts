@@ -42,7 +42,12 @@ const routes: Routes = [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
       { path: 'stills', component: AdminStillsComponent, canActivate: [AuthGuard] },
-      { path: 'videos', component: AdminVideosComponent, canActivate: [AuthGuard] },
+      {
+        path: 'videos',
+        component: AdminVideosComponent,
+        canActivate: [AuthGuard],
+        children: [{ path: ':id', component: VideoPlayerComponent }],
+      },
       { path: 'music', component: AdminMusicComponent, canActivate: [AuthGuard] },
       { path: '**', redirectTo: 'login' },
     ],
