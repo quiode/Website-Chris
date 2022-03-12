@@ -1,0 +1,12 @@
+div {
+  transition: background-color 0.5s ease-in-out;
+  background-color: rgb(var(--primary-color));
+
+  &:hover {
+    background-color: rgba(var(--secondary-color), 0.25);
+  }
+}
+
+* {
+  background-color: transparent;
+}
