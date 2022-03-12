@@ -1,17 +1,17 @@
-<form class="container" [formGroup]="uploadForm">
+<form class="container" [formGroup]="uploadForm" (ngSubmit)="submit()">
   <div class="row my-2">
     <div class="col">
       <label for="audio" class="form-label">Audio File</label>
-      <input class="form-control" type="file" accept="audio/mp3" id="audio" formControlName="audio"
-        [ngClass]="uploadForm.get('audio')!.dirty ? (uploadForm.get('audio')!.invalid ? 'is-invalid' : 'is-valid') : ''">
-    </div>
-    <div class="invalid-feedback">
-      You must provide a valid audio file.
+      <input class="form-control" type="file" accept="audio/mpeg" id="audio" formControlName="audio"
+        [ngClass]="applyClass('audio')">
+      <div class="invalid-feedback">
+        You must provide a valid audio file.
+      </div>
     </div>
     <div class="col">
       <label for="cover" class="form-label">Album Cover</label>
-      <input accept="image/jpeg" class="form-control" type="file" id="cover" formControlName="cover" [ngClass]="uploadForm.get('cover')!.dirty ? (uploadForm.get('audio')!.invalid ? 'is-invalid' : 'is-valid') :
-        ''">
+      <input accept="image/jpeg" class="form-control" type="file" id="cover" formControlName="cover"
+        [ngClass]="applyClass('cover')">
       <div class="invalid-feedback">
         You must provide a album cover.
       </div>
@@ -20,8 +20,7 @@
   <div class="row my-2">
     <div class="col">
       <label for="url" class="form-label">Song Link</label>
-      <input id="url" type="url" class="form-control" formControlName="url" [ngClass]="uploadForm.get('url')!.dirty ? (uploadForm.get('audio')!.invalid ? 'is-invalid' : 'is-valid') :
-        ''">
+      <input id="url" type="url" class="form-control" formControlName="url" [ngClass]="applyClass('url')">
       <div class="invalid-feedback">
         You must provide a valid url.
       </div>

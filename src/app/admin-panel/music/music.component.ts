@@ -10,8 +10,8 @@ import { fileTypeValidator } from '../../shared/validators/file-type-validator.d
 export class AdminMusicComponent implements OnInit {
   constructor() {}
   uploadForm = new FormGroup({
-    audio: new FormControl(null, [Validators.required, fileTypeValidator(['mp3'])]),
-    cover: new FormControl(null, [Validators.required, fileTypeValidator(['jpg', 'jpeg'])]),
+    audio: new FormControl('', [Validators.required, fileTypeValidator(['mp3'])]),
+    cover: new FormControl('', [Validators.required, fileTypeValidator(['jpg', 'jpeg'])]),
     url: new FormControl('', [
       Validators.required,
       Validators.pattern(
@@ -21,4 +21,23 @@ export class AdminMusicComponent implements OnInit {
   });
 
   ngOnInit(): void {}
+
+  applyClass(controlName: string): string {
+    const control = this.uploadForm.get(controlName);
+    if (control) {
+      if (control.touched) {
+        return control.invalid ? 'is-invalid' : 'is-valid';
+      }
+    }
+
+    return '';
+  }
+
+  submit(): void {
+    this.uploadForm.reset({
+      audio: '',
+      cover: '',
+      url: '',
+    });
+  }
 }
