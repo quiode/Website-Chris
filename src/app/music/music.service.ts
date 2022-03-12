@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject, finalize, map } from 'rxjs';
+import { Subject, BehaviorSubject, finalize, Observable, map } from 'rxjs';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { join } from 'path-browserify';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 export interface Music {
   id: string;
@@ -17,15 +18,18 @@ export interface Music {
 })
 export class MusicService {
   constructor(private httpClient: HttpClient) {
-    this.music.pipe(map((music) => music.sort((a, b) => a.position - b.position)));
+    this.music = this.musicSubject.pipe(
+      map((music) => music.map((m, i) => ({ ...m, position: i })))
+    );
     this.updateMusic();
   }
   private backendUrl = join(environment.apiUrl, 'music');
-  music = new BehaviorSubject<Music[]>([]);
+  private musicSubject = new BehaviorSubject<Music[]>([]);
+  music: Observable<Music[]>;
 
   updateMusic(): void {
     this.httpClient.get<Music[]>(this.backendUrl).subscribe((music) => {
-      this.music.next(music);
+      this.musicSubject.next(music.sort((a, b) => a.position - b.position));
     });
   }
 
@@ -62,10 +66,6 @@ export class MusicService {
     return uploadProgress;
   }
 
-  async getImageUrl(id: string): Promise<string> {
-    return '';
-  }
-
   async getAudioUrl(id: string): Promise<string> {
     return await new Promise<string>((resolve, reject) => {
       this.httpClient.get(join(this.backendUrl, id), { responseType: 'blob' }).subscribe({
@@ -81,6 +81,65 @@ export class MusicService {
           reject(err);
         },
       });
+    });
+  }
+
+  async getCoverUrl(id: string): Promise<string> {
+    return await new Promise<string>((resolve, reject) => {
+      this.httpClient.get(join(this.backendUrl, id, 'image'), { responseType: 'blob' }).subscribe({
+        next: (blob) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onloadend = () => {
+            resolve(reader.result as string);
+          };
+        },
+        error: (err) => {
+          console.log(err);
+          reject(err);
+        },
+      });
+    });
+  }
+
+  deleteMusic(id: string): void {
+    this.httpClient.delete(join(this.backendUrl, id)).subscribe(() => {
+      this.updateMusic();
+    });
+  }
+
+  moveItem(prevIndex: number, currentIndex: number) {
+    const music = this.musicSubject.value;
+    moveItemInArray(music, prevIndex, currentIndex);
+    this.musicSubject.next(music);
+  }
+
+  updateUrl(id: string, url: string): void {
+    const music = this.musicSubject.value;
+    const musicItem = music.find((m) => m.id === id);
+    if (musicItem) {
+      musicItem.url = url;
+      this.musicSubject.next(music);
+    }
+  }
+
+  async submitChanges(): Promise<void> {
+    let music = this.musicSubject.value;
+    music = music.map((m, index) => ({ ...m, position: index }));
+    return new Promise((reject, resolve) => {
+      this.httpClient
+        .patch<Music[]>(
+          this.backendUrl,
+          music.map((m) => ({ id: m.id, position: m.position, url: m.url }))
+        )
+        .subscribe({
+          next: (data) => {
+            resolve();
+          },
+          error: (err) => {
+            reject(err);
+          },
+        });
     });
   }
 }

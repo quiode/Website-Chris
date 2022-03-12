@@ -1,4 +1,5 @@
-<form class="container" [formGroup]="uploadForm" (ngSubmit)="submit()" *ngIf="uploadProgress==null">
+<form class="container" [formGroup]="uploadForm" (ngSubmit)="submit()"
+  *ngIf="uploadProgress == null && changes == false">
   <div class="row my-2">
     <div class="col">
       <label for="audio" class="form-label">Audio File</label>
@@ -34,8 +35,15 @@
 </form>
 <ngb-progressbar class="row" type="success" [value]="uploadProgress ? uploadProgress : 0"
   [ngStyle]="uploadProgress == null ? {display: 'none'} : {display:'initial'}">Uploading...</ngb-progressbar>
-<div>
+<div class="container" *ngIf="!uploadForm.touched">
   <div class="container border p-2" cdkDropList>
-    <app-music-item class="row mx-2" *ngFor="let musicPiece of music" [music]="musicPiece" cdkDrag></app-music-item>
+    <app-music-item class="row mx-2" *ngFor="let musicPiece of music" [music]="musicPiece" cdkDrag
+      (onDelete)="onDelete($event)" (cdkDragDropped)="onDrop($event)" (onUrlChange)="urlChange(musicPiece.id, $event)">
+    </app-music-item>
+  </div>
+  <div class="row">
+    <button class="btn btn-danger form-control m-2 col" type="button" [disabled]="!changes" (click)="submitChanges()">
+      Submit Changes
+    </button>
   </div>
 </div>

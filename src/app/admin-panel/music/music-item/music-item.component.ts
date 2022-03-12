@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Music, MusicService } from '../../../music/music.service';
 
@@ -9,6 +9,8 @@ import { Music, MusicService } from '../../../music/music.service';
 })
 export class MusicItemComponent implements OnInit {
   @Input() music: Music | null = null;
+  @Output() onDelete = new EventEmitter<string>();
+  @Output() onUrlChange = new EventEmitter<string>();
   imageUrl = '';
   audioUrl = '';
 
@@ -16,7 +18,7 @@ export class MusicItemComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.music) {
-      this.musicService.getImageUrl(this.music.id).then((url) => {
+      this.musicService.getCoverUrl(this.music.id).then((url) => {
         this.imageUrl = url;
       });
       this.musicService.getAudioUrl(this.music.id).then((url) => {

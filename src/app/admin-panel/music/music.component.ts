@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { fileTypeValidator } from '../../shared/validators/file-type-validator.directive';
 import { MusicService, Music } from '../../music/music.service';
 import { Subscription } from 'rxjs';
+import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-music',
@@ -15,6 +16,7 @@ export class AdminMusicComponent implements OnInit, OnDestroy {
   uploadProgress: number | null = null;
   music: Music[] = [];
   subscription: Subscription | null = null;
+  changes = false;
   uploadForm = new FormGroup({
     audio: new FormControl('', [Validators.required, fileTypeValidator(['mp3'])]),
     cover: new FormControl('', [Validators.required, fileTypeValidator(['jpg', 'jpeg'])]),
@@ -29,6 +31,7 @@ export class AdminMusicComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.musicService.music.subscribe((music) => {
       this.music = music;
+      this.changes = false;
     });
   }
 
@@ -81,9 +84,36 @@ export class AdminMusicComponent implements OnInit, OnDestroy {
     }
   }
 
+  onDelete(id: string): void {
+    this.musicService.deleteMusic(id);
+  }
+
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  onDrop(event: CdkDragDrop<Music[]>) {
+    this.musicService.moveItem(event.previousIndex, event.currentIndex);
+    this.changes = true;
+  }
+
+  urlChange(id: string, url: string): void {
+    this.musicService.updateUrl(id, url);
+    this.changes = true;
+  }
+
+  submitChanges(): void {
+    this.musicService
+      .submitChanges()
+      .then(() => {
+        this.changes = false;
+        this.musicService.updateMusic();
+      })
+      .catch((err) => {
+        this.changes = false;
+        this.musicService.updateMusic();
+      });
   }
 }
