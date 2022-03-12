@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { AdminPanelComponent } from './admin-panel.component';
 import { AdminStillsComponent } from './stills/stills.component';
 import { AdminVideosComponent } from './videos/videos.component';
-import { MusicComponent } from './music/music.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,6 +16,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AdminStillsApiService } from './stills/admin-stills-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { VideoItemComponent } from './videos/video-item/video-item.component';
+import { AdminMusicComponent } from './music/music.component';
 
 @NgModule({
   imports: [
@@ -33,7 +33,7 @@ import { VideoItemComponent } from './videos/video-item/video-item.component';
     AdminPanelComponent,
     AdminStillsComponent,
     AdminVideosComponent,
-    MusicComponent,
+    AdminMusicComponent,
     LoginComponent,
     StillItemComponent,
     VideoItemComponent,

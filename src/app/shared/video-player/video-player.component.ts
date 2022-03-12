@@ -28,11 +28,11 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   constructor(private fullScreenService: FullscreenService) {}
 
   ngOnInit(): void {
-    this.player = videojs(this.playerElement, {
-      controls: true,
-      autoplay: false,
-      preload: 'auto',
-    });
+    // this.player = videojs(this.playerElement, {
+    //   controls: true,
+    //   autoplay: false,
+    //   preload: 'auto',
+    // });
     this.fullScreenService.openFullscreen();
     document.body.style.overflow = 'hidden';
   }
@@ -43,9 +43,9 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if ('videoUrl' in changes) {
-      console.log(this.videoUrl);
-      this.player?.src(this.videoUrl);
-    }
+    //   if ('videoUrl' in changes) {
+    //     console.log(this.videoUrl);
+    //     this.player?.src(this.videoUrl);
+    //   }
   }
 }

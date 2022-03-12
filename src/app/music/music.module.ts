@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdminMusicComponent } from './music.component';
+import { MusicComponent } from './music.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [AdminMusicComponent],
-  imports: [CommonModule],
+  declarations: [MusicComponent],
+  imports: [CommonModule, SharedModule],
 })
 export class MusicModule {}

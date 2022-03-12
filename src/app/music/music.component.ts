@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import videojs from 'video.js';
 
 @Component({
   selector: 'app-music',
   templateUrl: './music.component.html',
   styleUrls: ['./music.component.scss'],
 })
-export class AdminMusicComponent implements OnInit {
+export class MusicComponent {
   constructor() {}
-
-  ngOnInit(): void {}
 }
