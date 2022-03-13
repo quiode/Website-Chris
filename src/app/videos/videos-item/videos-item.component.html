@@ -9,7 +9,7 @@
     <div class="video-link video-item" id="yt" (click)="openLink(video?.url || '')"><span>Watch on another
         Website</span></div>
     <div class="video-item"
-      [ngStyle]="video?.line2 && video?.line2 != '' && video?.line2 != ' ' ? {width: '100%'} : {}">
+      [ngStyle]="video?.line2 && video?.line2 != '' && video?.line2 != ' ' ? {height: '100%'} : {}">
       <div>
         <span class="fs-2">{{ video?.line1 }}</span>
       </div>
