@@ -4,7 +4,7 @@
     [ngStyle]="{'display': stillsChanged ? 'none' : 'inline-block'}">Select Stills</app-file-upload>
   <div id="br" [ngStyle]="{'display': !selectedFiles ? 'none' : 'block'}"></div>
   <div id=" item-container" cdkDropList (cdkDropListDropped)="drop($event)" cdkDragBoundary="item-container"
-    [ngStyle]="{'display': selectedFiles ? 'none' : 'inline-block'}">
+    [ngStyle]="{'display': selectedFiles ? 'none' : 'block'}">
     <app-still-item cdkDrag *ngFor="let still of stills; index as i" [still]="still" id="stillItem"
       [cdkDragData]="still" (deleteStill)="onDelete($event)">{{ i
       }}
