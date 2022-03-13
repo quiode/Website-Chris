@@ -28,6 +28,7 @@ export class MusicService {
   music: Observable<Music[]>;
 
   updateMusic(): void {
+    console.error(this.backendUrl);
     this.httpClient.get<Music[]>(this.backendUrl).subscribe((music) => {
       this.musicSubject.next(music.sort((a, b) => a.position - b.position));
     });
