@@ -23,7 +23,7 @@ export class MusicService {
     );
     this.updateMusic();
   }
-  private backendUrl = join(environment.apiUrl, 'music');
+  private readonly backendUrl = environment.apiUrl + 'music';
   private musicSubject = new BehaviorSubject<Music[]>([]);
   music: Observable<Music[]>;
 
