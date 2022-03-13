@@ -3,9 +3,9 @@
     <div class="col-sm-1 text-center my-auto">{{ video?.position }}</div>
     <textarea class="col form-control mx-1" placeholder="url" [value]="video.url" (change)="urlInputChange($event)"
       required></textarea>
-    <img class="col mx-1 img-fluid" [src]="imgUrl1">
-    <img class="col mx-1 img-fluid" [src]="imgUrl2">
-    <img class="col mx-1 img-fluid" [src]="imgUrl3">
+    <div class="col mx-1"><img class=" img-fluid" [src]="imgUrl1"></div>
+    <div class="col mx-1"><img class="img-fluid" [src]="imgUrl2"></div>
+    <div class="col mx-1"><img class="img-fluid" [src]="imgUrl3"></div>
     <button class="btn btn-primary col mx-1" (click)="openPlayer()">Watch Video</button>
     <div class="col my-auto ms-3">
       <textarea class="row form-control mb-1" placeholder="title" [value]="video.line1"
