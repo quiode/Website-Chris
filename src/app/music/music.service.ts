@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject, finalize, Observable, map } from 'rxjs';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { join } from 'path-browserify';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 export interface Music {
@@ -68,7 +67,7 @@ export class MusicService {
 
   async getAudioUrl(id: string): Promise<string> {
     return await new Promise<string>((resolve, reject) => {
-      this.httpClient.get(join(this.backendUrl, id), { responseType: 'blob' }).subscribe({
+      this.httpClient.get(this.backendUrl + '/' + id, { responseType: 'blob' }).subscribe({
         next: (blob) => {
           const reader = new FileReader();
           reader.readAsDataURL(blob);
@@ -86,24 +85,26 @@ export class MusicService {
 
   async getCoverUrl(id: string): Promise<string> {
     return await new Promise<string>((resolve, reject) => {
-      this.httpClient.get(join(this.backendUrl, id, 'image'), { responseType: 'blob' }).subscribe({
-        next: (blob) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(blob);
-          reader.onloadend = () => {
-            resolve(reader.result as string);
-          };
-        },
-        error: (err) => {
-          console.log(err);
-          reject(err);
-        },
-      });
+      this.httpClient
+        .get(this.backendUrl + '/' + id + '/image', { responseType: 'blob' })
+        .subscribe({
+          next: (blob) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = () => {
+              resolve(reader.result as string);
+            };
+          },
+          error: (err) => {
+            console.log(err);
+            reject(err);
+          },
+        });
     });
   }
 
   deleteMusic(id: string): void {
-    this.httpClient.delete(join(this.backendUrl, id)).subscribe(() => {
+    this.httpClient.delete(this.backendUrl + '/' + id).subscribe(() => {
       this.updateMusic();
     });
   }
