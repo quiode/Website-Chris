@@ -40,7 +40,7 @@ export class MusicItemComponent implements OnInit {
   }
 
   detectBrowserName() {
-    const agent = window.navigator.userAgent.toLowerCase()
+    const agent = window.navigator.userAgent.toLowerCase();
     switch (true) {
       case agent.indexOf('edge') > -1:
         return 'edge';
@@ -57,4 +57,5 @@ export class MusicItemComponent implements OnInit {
       default:
         return 'other';
     }
+  }
 }
