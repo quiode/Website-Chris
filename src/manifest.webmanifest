@@ -1,6 +1,7 @@
 {
   "name": "Website Christoph Bärtsch",
   "short_name": "Website CB",
+  "start_url": "/",
   "icons": [
     {
       "src": "assets/favicon_io/android-chrome-192x192.png",
