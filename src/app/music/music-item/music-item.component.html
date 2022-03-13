@@ -12,7 +12,7 @@
         <img class="col img-fluid icon" src="assets/music.svg">
         <div class="col text">Listen Here</div>
         <div class="collapse collapse-horizontal" [id]="'id'.repeat((music?.position  || 0) + 1)">
-          <div class="card card-body" id="player" style="width: 300px;">
+          <div class="card card-body" id="player" style="width: auto;">
             <audio controls [src]="sanitize(musicUrl)" style="width: inherit;">
               Your browser does not support the <code>audio</code> element.
             </audio>
