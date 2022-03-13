@@ -12,7 +12,7 @@
       <div>
         <span class="fs-2">{{ video?.line1 }}</span>
       </div>
-      <div>
+      <div *ngIf="video?.line2 && video?.line2 != '' && video?.line2 != ' ' ">
         <span class="fs-4">{{ video?.line2 }}</span>
       </div>
     </div>
