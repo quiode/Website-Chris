@@ -6,8 +6,7 @@
     <img class="video-item" [src]="imageURLs[2]" (click)="openPlayer()">
   </div>
   <div class="items-container" id="links" #links>
-    <div class="video-link video-item" id="yt" (click)="openLink(video?.url || '')"><span>Watch on another
-        Website</span></div>
+    <div class="video-link video-item" id="yt" (click)="openLink(video?.url || '')"><span>Watch on YouTube</span></div>
     <div class="video-item">
       <div [ngStyle]="video?.line2 && video?.line2 != '' && video?.line2 != ' ' ? {} : {height: '100%'}">
         <span class="fs-2">{{ video?.line1 }}</span>
