@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://christoph-baertsch.ch/api/',
+  apiUrl: 'https://service.christoph-baertsch.ch/',
 };

@@ -5,9 +5,3 @@ https://christoph-baertsch.ch/#/music
 https://christoph-baertsch.ch/#/aboutme
 https://christoph-baertsch.ch/#/linktree
 https://christoph-baertsch.ch/#/impressum
-https://christoph-baertsch.ch/#/admin
-https://christoph-baertsch.ch/#/admin/login
-https://christoph-baertsch.ch/#/admin/stills
-https://christoph-baertsch.ch/#/admin/videos
-https://christoph-baertsch.ch/#/admin/music
-https://christoph-baertsch.ch/api/
