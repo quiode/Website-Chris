@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: location.origin + '/api/',
+  apiUrl: 'https://service.christoph-baertsch.ch/',
 };
