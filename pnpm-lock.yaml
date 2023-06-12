@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -45,8 +45,8 @@ dependencies:
     specifier: ^15.2.9
     version: 15.2.9(@angular/common@15.2.9)(@angular/core@15.2.9)
   '@auth0/angular-jwt':
-    specifier: ^5.0.2
-    version: 5.0.2(@angular/common@15.2.9)
+    specifier: ^5.1.2
+    version: 5.1.2(@angular/common@15.2.9)
   '@ng-bootstrap/ng-bootstrap':
     specifier: ^14.0.0
     version: 14.0.0(@angular/common@15.2.9)(@angular/core@15.2.9)(@angular/forms@15.2.9)(@angular/localize@15.2.9)(@popperjs/core@2.11.6)(rxjs@7.5.0)
@@ -625,13 +625,13 @@ packages:
     resolution: {integrity: sha512-H71nDOOL8Y7kWRLqf6Sums+01Q5msqBW2KhDUTemh1tvY04eSkSXrK0uj/4mmY0Xr16/3zyZmsrxN7CKuRbNRg==}
     dev: true
 
-  /@auth0/angular-jwt@5.0.2(@angular/common@15.2.9):
-    resolution: {integrity: sha512-rSamC9mu+gUxoR86AXcIo+KD7xRIro+/iu1F2Ld85YAZEVKlpB5vYG+g0yGaEOqjtQWP/i0H6fi6XMGPVHSYYQ==}
+  /@auth0/angular-jwt@5.1.2(@angular/common@15.2.9):
+    resolution: {integrity: sha512-8ulz24cPpEkZb9/AdAaWfYIkomQDbZqvB9LproF/48Klnr30EJx09AYF9sbKTN4qLSgIZSlCb/Y7XQJZ51vSzA==}
     peerDependencies:
-      '@angular/common': '>=9.0.0'
+      '@angular/common': '>=12.0.0'
     dependencies:
       '@angular/common': 15.2.9(@angular/core@15.2.9)(rxjs@7.5.0)
-      tslib: 2.3.0
+      tslib: 2.5.0
     dev: false
 
   /@babel/code-frame@7.22.5:
@@ -6181,6 +6181,7 @@ packages:
 
   /node-addon-api@3.2.1:
     resolution: {integrity: sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -6192,6 +6193,7 @@ packages:
   /node-gyp-build@4.6.0:
     resolution: {integrity: sha512-NTZVKn9IylLwUzaKjkas1e4u2DLNcV4rdYagA4PWdPwW87Bi7z+BznyKSRwS/761tV/lzCGXplWsiaMjLqP2zQ==}
     hasBin: true
+    requiresBuild: true
     dev: true
     optional: true
 

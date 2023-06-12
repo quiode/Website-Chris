@@ -24,7 +24,7 @@
     "@angular/pwa": "^13.2.5",
     "@angular/router": "^15.2.9",
     "@angular/service-worker": "^15.2.9",
-    "@auth0/angular-jwt": "^5.0.2",
+    "@auth0/angular-jwt": "^5.1.2",
     "@ng-bootstrap/ng-bootstrap": "^14.0.0",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
