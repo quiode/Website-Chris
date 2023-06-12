@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+  "packageManager": "pnpm@8.6.1",
   "private": true,
   "dependencies": {
     "@angular/animations": "~13.2.0",
