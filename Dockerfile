@@ -13,7 +13,7 @@ RUN pnpm i
 # build
 COPY . .
 
-RUN npm run build
+RUN pnpm run build
 
 # run
 FROM nginx:stable-alpine
