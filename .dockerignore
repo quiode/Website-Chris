@@ -1,6 +1,15 @@
 # Docker stuff
 Dockerfile
 
+# Git (and config files)
+.gitignore
+.git
+.github
+.vscode
+LICENSE.md
+README.md
+.editorconfig
+
 # .gitignore content
 
 # Compiled output
