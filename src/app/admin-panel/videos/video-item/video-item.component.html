@@ -1,6 +1,6 @@
 <div class="conatiner border py-3">
   <div class="row" style="align-items: center;">
-    <div class="col-sm-1 text-center my-auto">{{ video?.position }}</div>
+    <div class="col-sm-1 text-center my-auto">{{ video.position }}</div>
     <textarea class="col form-control mx-1" placeholder="url" [value]="video.url" (change)="urlInputChange($event)"
       required></textarea>
     <div class="col mx-1"><img class=" img-fluid" [src]="imgUrl1"></div>
