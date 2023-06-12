@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { fileTypeValidator } from '../../shared/validators/file-type-validator.directive';
 import { MusicService, Music } from '../../music/music.service';
 import { Subscription } from 'rxjs';
@@ -17,10 +17,10 @@ export class AdminMusicComponent implements OnInit, OnDestroy {
   music: Music[] = [];
   subscription: Subscription | null = null;
   changes = false;
-  uploadForm = new FormGroup({
-    audio: new FormControl('', [Validators.required, fileTypeValidator(['mp3'])]),
-    cover: new FormControl('', [Validators.required, fileTypeValidator(['jpg', 'jpeg'])]),
-    url: new FormControl('', [
+  uploadForm = new UntypedFormGroup({
+    audio: new UntypedFormControl('', [Validators.required, fileTypeValidator(['mp3'])]),
+    cover: new UntypedFormControl('', [Validators.required, fileTypeValidator(['jpg', 'jpeg'])]),
+    url: new UntypedFormControl('', [
       Validators.required,
       Validators.pattern(
         /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/

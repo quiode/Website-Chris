@@ -2,10 +2,13 @@ FROM node:16 as build
 
 WORKDIR /build
 
-# npm
-COPY package.json package-lock.json ./
+# pnpm
+RUN npm i -g pnpm
 
-RUN npm ci
+# npm
+COPY package.json pnpm-lock.yaml ./
+
+RUN pnpm i
 
 # build
 COPY . .
