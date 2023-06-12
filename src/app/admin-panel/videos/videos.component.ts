@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminVideosApiService } from './admin-videos-api.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { fileTypeValidator } from '../../shared/validators/file-type-validator.directive';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
@@ -25,14 +25,14 @@ export class AdminVideosComponent implements OnInit {
   files: { [index: string]: File } = {};
   changes = false;
   uploadProgress: number | null = null;
-  form = new FormGroup({
-    video: new FormControl('', [Validators.required, fileTypeValidator(['mp4'])]),
-    image1: new FormControl('', [Validators.required, fileTypeValidator(['jpeg', 'jpg'])]),
-    image2: new FormControl('', [Validators.required, fileTypeValidator(['jpeg', 'jpg'])]),
-    image3: new FormControl('', [Validators.required, fileTypeValidator(['jpeg', 'jpg'])]),
-    title: new FormControl('', [Validators.required]),
-    subtitle: new FormControl('', [Validators.required]),
-    url: new FormControl('', [
+  form = new UntypedFormGroup({
+    video: new UntypedFormControl('', [Validators.required, fileTypeValidator(['mp4'])]),
+    image1: new UntypedFormControl('', [Validators.required, fileTypeValidator(['jpeg', 'jpg'])]),
+    image2: new UntypedFormControl('', [Validators.required, fileTypeValidator(['jpeg', 'jpg'])]),
+    image3: new UntypedFormControl('', [Validators.required, fileTypeValidator(['jpeg', 'jpg'])]),
+    title: new UntypedFormControl('', [Validators.required]),
+    subtitle: new UntypedFormControl('', [Validators.required]),
+    url: new UntypedFormControl('', [
       Validators.required,
       Validators.pattern(
         /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
