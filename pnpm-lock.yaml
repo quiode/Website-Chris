@@ -48,14 +48,14 @@ dependencies:
     specifier: ^5.0.2
     version: 5.0.2(@angular/common@15.2.9)
   '@ng-bootstrap/ng-bootstrap':
-    specifier: ^13.1.0
-    version: 13.1.0(@angular/common@15.2.9)(@angular/core@15.2.9)(@angular/forms@15.2.9)(@angular/localize@15.2.9)(@popperjs/core@2.10.2)(rxjs@7.5.0)
+    specifier: ^14.0.0
+    version: 14.0.0(@angular/common@15.2.9)(@angular/core@15.2.9)(@angular/forms@15.2.9)(@angular/localize@15.2.9)(@popperjs/core@2.11.6)(rxjs@7.5.0)
   '@popperjs/core':
-    specifier: ^2.10.2
-    version: 2.10.2
+    specifier: ^2.11.6
+    version: 2.11.6
   bootstrap:
-    specifier: ^5.2.0
-    version: 5.2.0(@popperjs/core@2.10.2)
+    specifier: ^5.2.3
+    version: 5.2.3(@popperjs/core@2.11.6)
   jshint:
     specifier: ^2.13.4
     version: 2.13.4
@@ -2828,23 +2828,23 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /@ng-bootstrap/ng-bootstrap@13.1.0(@angular/common@15.2.9)(@angular/core@15.2.9)(@angular/forms@15.2.9)(@angular/localize@15.2.9)(@popperjs/core@2.10.2)(rxjs@7.5.0):
-    resolution: {integrity: sha512-pmyIQ3yWT/SIRiVJqu0+0cxWvcLLyOkzkmgUk6aTjLKS/n1X/xcVfGCoUoEPo3HvpbnLKIwlRJkTEYYgC9pwnA==}
+  /@ng-bootstrap/ng-bootstrap@14.0.0(@angular/common@15.2.9)(@angular/core@15.2.9)(@angular/forms@15.2.9)(@angular/localize@15.2.9)(@popperjs/core@2.11.6)(rxjs@7.5.0):
+    resolution: {integrity: sha512-QOYt1MBqAVVrjYSIf4gGXzRRJFzVKuD7ya2yFmeqN0YV2t3kB+IfUaNlfT3PTakHxLOS9ujLXeDiaTps5ST5TA==}
     peerDependencies:
-      '@angular/common': ^14.1.0
-      '@angular/core': ^14.1.0
-      '@angular/forms': ^14.1.0
-      '@angular/localize': ^14.1.0
-      '@popperjs/core': ^2.10.2
+      '@angular/common': ^15.0.0
+      '@angular/core': ^15.0.0
+      '@angular/forms': ^15.0.0
+      '@angular/localize': ^15.0.0
+      '@popperjs/core': ^2.11.6
       rxjs: ^6.5.3 || ^7.4.0
     dependencies:
       '@angular/common': 15.2.9(@angular/core@15.2.9)(rxjs@7.5.0)
       '@angular/core': 15.2.9(rxjs@7.5.0)(zone.js@0.11.4)
       '@angular/forms': 15.2.9(@angular/common@15.2.9)(@angular/core@15.2.9)(@angular/platform-browser@15.2.9)(rxjs@7.5.0)
       '@angular/localize': 15.2.9(@angular/compiler-cli@15.2.9)(@angular/compiler@15.2.9)
-      '@popperjs/core': 2.10.2
+      '@popperjs/core': 2.11.6
       rxjs: 7.5.0
-      tslib: 2.4.0
+      tslib: 2.5.0
     dev: false
 
   /@ngtools/webpack@15.2.8(@angular/compiler-cli@15.2.9)(typescript@4.8.4)(webpack@5.76.1):
@@ -2963,8 +2963,8 @@ packages:
     dev: true
     optional: true
 
-  /@popperjs/core@2.10.2:
-    resolution: {integrity: sha512-IXf3XA7+XyN7CP9gGh/XB0UxVMlvARGEgGXLubFICsUMGz6Q+DU+i4gGlpOxTjKvXjkJDJC8YdqdKkDj9qZHEQ==}
+  /@popperjs/core@2.11.6:
+    resolution: {integrity: sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==}
     dev: false
 
   /@schematics/angular@13.2.5:
@@ -3744,12 +3744,12 @@ packages:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
     dev: true
 
-  /bootstrap@5.2.0(@popperjs/core@2.10.2):
-    resolution: {integrity: sha512-qlnS9GL6YZE6Wnef46GxGv1UpGGzAwO0aPL1yOjzDIJpeApeMvqV24iL+pjr2kU4dduoBA9fINKWKgMToobx9A==}
+  /bootstrap@5.2.3(@popperjs/core@2.11.6):
+    resolution: {integrity: sha512-cEKPM+fwb3cT8NzQZYEu4HilJ3anCrWqh3CHAok1p9jXqMPsPTBhU25fBckEJHJ/p+tTxTFTsFQGM+gaHpi3QQ==}
     peerDependencies:
-      '@popperjs/core': ^2.11.5
+      '@popperjs/core': ^2.11.6
     dependencies:
-      '@popperjs/core': 2.10.2
+      '@popperjs/core': 2.11.6
     dev: false
 
   /brace-expansion@1.1.11:
