@@ -29,7 +29,7 @@
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
     "jshint": "^2.13.4",
-    "ngx-cookie-service": "^14.0.0",
+    "ngx-cookie-service": "^15.0.0",
     "path-browserify": "^1.0.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

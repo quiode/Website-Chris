@@ -60,8 +60,8 @@ dependencies:
     specifier: ^2.13.4
     version: 2.13.4
   ngx-cookie-service:
-    specifier: ^14.0.0
-    version: 14.0.0(@angular/common@15.2.9)(@angular/core@15.2.9)
+    specifier: ^15.0.0
+    version: 15.0.0(@angular/common@15.2.9)(@angular/core@15.2.9)
   path-browserify:
     specifier: ^1.0.1
     version: 1.0.1
@@ -6158,15 +6158,15 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
-  /ngx-cookie-service@14.0.0(@angular/common@15.2.9)(@angular/core@15.2.9):
-    resolution: {integrity: sha512-Yur9aIrtcqkI40UgvIN8VLoOzxhI3o/yWc16Q/buvprapTQzYdplNZ5chjb50SYaREiJdXfj7Wc49YG+9ABX1A==}
+  /ngx-cookie-service@15.0.0(@angular/common@15.2.9)(@angular/core@15.2.9):
+    resolution: {integrity: sha512-KU1JCjfpDTvD6L0FhHN9W/oP3Sue8yMAAK6XY3h/MEhrPS7vx6t3+h0ulY8l8R/9d1cmlQVyTHn1Jd1Jdf5K+g==}
     peerDependencies:
-      '@angular/common': ^14.0.0
-      '@angular/core': ^14.0.0
+      '@angular/common': ^15.0.0
+      '@angular/core': ^15.0.0
     dependencies:
       '@angular/common': 15.2.9(@angular/core@15.2.9)(rxjs@7.5.0)
       '@angular/core': 15.2.9(rxjs@7.5.0)(zone.js@0.11.4)
-      tslib: 2.4.0
+      tslib: 2.5.0
     dev: false
 
   /nice-napi@1.0.2:
@@ -7674,10 +7674,6 @@ packages:
 
   /tslib@2.3.0:
     resolution: {integrity: sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==}
-
-  /tslib@2.4.0:
-    resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
-    dev: false
 
   /tslib@2.5.0:
     resolution: {integrity: sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==}
