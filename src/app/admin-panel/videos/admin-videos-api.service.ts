@@ -4,6 +4,8 @@ import { Subject, finalize, map, BehaviorSubject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
+import { UUID } from 'crypto';
+import { ProgressService } from '../shared/progress.service';
 
 export interface PostVideo {
   video: File;
@@ -19,7 +21,7 @@ export interface PostVideo {
   providedIn: 'root',
 })
 export class AdminVideosApiService {
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private progressService: ProgressService) {
     this.getVideos().subscribe((videos) => {
       this.videos.next(videos);
     });
@@ -39,23 +41,38 @@ export class AdminVideosApiService {
   }
 
   addVideo(data: FormData) {
-    let uploadProgress = new Subject<number>();
+    let uploadProgress = new Subject<{ progress: number, type: string }>();
     const upload = this.httpClient
-      .post(this.backendUrl, data, {
+      .post<{ uuid: UUID }>(this.backendUrl, data, {
         reportProgress: true,
         observe: 'events',
-      })
-      .pipe(
-        finalize(() => {
-          uploadProgress.complete();
-        })
-      );
-    uploadProgress.next(0);
+      });
+
+    uploadProgress.next(
+      { progress: 0, type: 'Uploading' }
+    );
+
     upload.subscribe({
       next: (event) => {
-        if (event.type == HttpEventType.UploadProgress) {
+        if (event.type === HttpEventType.UploadProgress) {
           if (event.total) {
-            uploadProgress.next(Math.round(100 * (event.loaded / event.total)));
+            uploadProgress.next(
+              { progress: Math.round(100 * (event.loaded / event.total)), type: 'Uploading' }
+            );
+          }
+        } else if (event.type === HttpEventType.Response) {
+          if (event.body?.uuid) {
+            this.progressService.getProgress(event.body.uuid).subscribe({
+              next: progress => uploadProgress.next(progress),
+              error: err => {
+                uploadProgress.error(err);
+                uploadProgress.complete();
+              },
+              complete: () => uploadProgress.complete()
+            });
+          } else {
+            uploadProgress.error("No uuid received!");
+            uploadProgress.complete();
           }
         }
       },

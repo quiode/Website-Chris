@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminVideosApiService } from './admin-videos-api.service';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormGroup, FormControl } from '@angular/forms';
 import { fileTypeValidator } from '../../shared/validators/file-type-validator.directive';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
@@ -24,15 +24,15 @@ export class AdminVideosComponent implements OnInit {
   videos: Video[] = [];
   files: { [index: string]: File } = {};
   changes = false;
-  uploadProgress: number | null = null;
-  form = new UntypedFormGroup({
-    video: new UntypedFormControl('', [Validators.required, fileTypeValidator(['mp4'])]),
-    image1: new UntypedFormControl('', [Validators.required, fileTypeValidator(['jpeg', 'jpg'])]),
-    image2: new UntypedFormControl('', [Validators.required, fileTypeValidator(['jpeg', 'jpg'])]),
-    image3: new UntypedFormControl('', [Validators.required, fileTypeValidator(['jpeg', 'jpg'])]),
-    title: new UntypedFormControl('', [Validators.required]),
-    subtitle: new UntypedFormControl('', [Validators.required]),
-    url: new UntypedFormControl('', [
+  uploadProgress: {progress: number, type: string} | null = null;
+  form = new FormGroup({
+    video: new FormControl('', [Validators.required, fileTypeValidator(['mp4'])]),
+    image1: new FormControl('', [Validators.required, fileTypeValidator(['jpeg', 'jpg'])]),
+    image2: new FormControl('', [Validators.required, fileTypeValidator(['jpeg', 'jpg'])]),
+    image3: new FormControl('', [Validators.required, fileTypeValidator(['jpeg', 'jpg'])]),
+    title: new FormControl('', [Validators.required]),
+    subtitle: new FormControl('', [Validators.required]),
+    url: new FormControl('', [
       Validators.required,
       Validators.pattern(
         /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
@@ -78,7 +78,16 @@ export class AdminVideosComponent implements OnInit {
         complete: () => {
           this.uploadProgress = null;
           this.files = {};
-          this.form.reset();
+          this.form.reset({
+            image1: '',
+            image2: '',
+            image3: '',
+            subtitle: '',
+            title: '',
+            url: '',
+            video: ''
+          });
+          this.videosApi.updateVideos();
         },
       });
     } else {

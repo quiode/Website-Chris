@@ -59,8 +59,8 @@
       </div>
     </form>
   </div>
-  <ngb-progressbar class="col" type="success" [value]="uploadProgress ? uploadProgress : 0"
-    [ngStyle]="uploadProgress == null ? {display: 'none'} : {display:'initial'}">Uploading...</ngb-progressbar>
+  <ngb-progressbar class="col" type="success" [value]="uploadProgress ? uploadProgress.progress : 0"
+    [ngStyle]="uploadProgress == null ? {display: 'none'} : {display:'initial'}">{{ uploadProgress?.type }}...</ngb-progressbar>
   <div class="border p-4" id="videoListing" [ngClass]="form.dirty ? 'd-none' : 'container'">
     <div class="row" cdkDropList>
       <app-video-item *ngFor="let video of videos" [video]="video" class="row my-2" style="cursor: pointer;" cdkDrag
